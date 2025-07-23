@@ -10,6 +10,13 @@
 <body>
   <h1>Instructivo interactivo para el despliegue de módulos en JBoss</h1>
 
+  <div class="env-selector">
+    <label><input type="checkbox" data-env="PROD_FM" checked> PROD_FM</label>
+    <label><input type="checkbox" data-env="PROD_CC" checked> PROD_CC</label>
+    <label><input type="checkbox" data-env="PROD_GM" checked> PROD_GM</label>
+    <label><input type="checkbox" data-env="PROD_GOT" checked> PROD_GOT</label>
+  </div>
+
   <div class="cards">
     <div class="card" data-module="CT">
       <div><i class="fas fa-box card-icon"></i> <strong>CT</strong> - CT-2.12</div>
@@ -49,37 +56,112 @@
     </div>
   </div>
 
-  <div class="env-selector">
-    <label><input type="checkbox" data-env="PROD_FM" checked> PROD_FM</label>
-    <label><input type="checkbox" data-env="PROD_CC" checked> PROD_CC</label>
-    <label><input type="checkbox" data-env="PROD_GM" checked> PROD_GM</label>
-    <label><input type="checkbox" data-env="PROD_GOT"> PROD_GOT (solo Stop)</label>
-  </div>
-
-  <div class="steps">
-    <div class="step"><div class="step-number">1. Acceso a la Consola JBoss</div><img src="images/a.png"></div>
-    <div class="step"><div class="step-number">2. Panel principal</div><img src="images/b.png"></div>
-    <div class="step"><div class="step-number">3. Ir a Runtime y seleccionar Server Groups</div><img src="images/c.png"></div>
-    <div class="step"><div class="step-number">4. Detener el grupo de servidor correspondiente</div><img src="images/d.png"></div>
-    <div class="step"><div class="step-number">5. Ir a la pestaña Deployments</div><img src="images/e.png"></div>
-    <div class="step"><div class="step-number">6. Deshabilitar el WAR actual</div><img src="images/f.png"></div>
-    <div class="step"><div class="step-number">7. Subir nuevo archivo WAR</div><img src="images/g.png"></div>
-    <div class="step"><div class="step-number">8. Seleccionar el archivo WAR desde la carpeta</div><img src="images/h.png"></div>
-    <div class="step"><div class="step-number">9. Confirmar archivo seleccionado y subir</div><img src="images/i.png"></div>
-    <div class="step"><div class="step-number">10. Iniciar nuevamente el servidor</div><img src="images/j.png"></div>
-    <div class="step"><div class="step-number">11. Rollback – Restaurar versión anterior del WAR</div>
-      <p>1. Detener el servidor (Runtime > Stop o Kill).<br>
-      2. Ir a Deployments y deshabilitar el WAR actual.<br>
-      3. Habilitar el WAR anterior (Enable).<br>
-      4. Volver a Runtime y reiniciar el servidor.</p>
-      <img src="images/k.png">
-    </div>
-  </div>
-
   <div class="button-container">
     <button class="button" id="guardar-btn"><i class="fas fa-save"></i> Guardar</button>
   </div>
 
+  <div class="steps">
+    
+    <div class="step-image" id="step-1" style="display: block;">
+      <h2>Paso 1</h2>
+      <img src="images/a.png" alt="Paso 1" />
+    </div>
+    
+    <div class="step-image" id="step-2" style="display: none;">
+      <h2>Paso 2</h2>
+      <img src="images/b.png" alt="Paso 2" />
+    </div>
+    
+    <div class="step-image" id="step-3" style="display: none;">
+      <h2>Paso 3</h2>
+      <img src="images/c.png" alt="Paso 3" />
+    </div>
+    
+    <div class="step-image" id="step-4" style="display: none;">
+      <h2>Paso 4</h2>
+      <img src="images/d.png" alt="Paso 4" />
+    </div>
+    
+    <div class="step-image" id="step-5" style="display: none;">
+      <h2>Paso 5</h2>
+      <img src="images/e.png" alt="Paso 5" />
+    </div>
+    
+    <div class="step-image" id="step-6" style="display: none;">
+      <h2>Paso 6</h2>
+      <img src="images/f.png" alt="Paso 6" />
+    </div>
+    
+    <div class="step-image" id="step-7" style="display: none;">
+      <h2>Paso 7</h2>
+      <img src="images/g.png" alt="Paso 7" />
+    </div>
+    
+    <div class="step-image" id="step-8" style="display: none;">
+      <h2>Paso 8</h2>
+      <img src="images/h.png" alt="Paso 8" />
+    </div>
+    
+    <div class="step-image" id="step-9" style="display: none;">
+      <h2>Paso 9</h2>
+      <img src="images/i.png" alt="Paso 9" />
+    </div>
+    
+    <div class="step-image" id="step-10" style="display: none;">
+      <h2>Paso 10</h2>
+      <img src="images/j.png" alt="Paso 10" />
+    </div>
+    
+    <div class="step-image" id="step-11" style="display: none;">
+      <h2>Paso 11</h2>
+      <img src="images/k.png" alt="Paso 11" />
+    </div>
+    
+    <div style="text-align:center; margin-top: 1rem;">
+      <button id="prev" class="button" style="margin-right:1rem;"><i class="fas fa-arrow-left"></i> Anterior</button>
+      <button id="next" class="button"><i class="fas fa-arrow-right"></i> Siguiente</button>
+    </div>
+  </div>
+
   <script src="js/git-auto.js"></script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const checkboxes = document.querySelectorAll("input[type='checkbox'][data-env]");
+  const cards = document.querySelectorAll(".card");
+
+  function updateVisibility() {
+    const selected = Array.from(checkboxes)
+      .filter(chk => chk.checked)
+      .map(chk => chk.dataset.env.replace("PROD_", ""));
+
+    cards.forEach(card => {
+      const module = card.dataset.module;
+      const status = card.querySelector("select").value;
+      if (selected.includes(module) && (status === "Actualiza" || status === "Se stopea")) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  checkboxes.forEach(chk => chk.addEventListener("change", updateVisibility));
+  document.querySelectorAll("select[data-module]").forEach(sel => sel.addEventListener("change", updateVisibility));
+  updateVisibility();
+
+  // Imagen por página
+  let current = 1;
+  const total = 11;
+  const showPage = (n) => {
+    for (let i = 1; i <= total; i++) {
+      document.getElementById("step-" + i).style.display = (i === n ? "block" : "none");
+    }
+  };
+  document.getElementById("next").onclick = () => { if (current < total) showPage(++current); };
+  document.getElementById("prev").onclick = () => { if (current > 1) showPage(--current); };
+});
+</script>
+
 </body>
 </html>
