@@ -1,894 +1,112 @@
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JBoss Deployment Manager | Cablevisión</title>
-    
-    <!-- Fuentes Premium -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Iconos Font Awesome Pro -->
-    <link href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css" rel="stylesheet">
-    
-    <!-- Animaciones CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    
+    <title>Instructivo Paso a Paso - Administración JBoss</title>
     <style>
-        :root {
-            /* Paleta de colores premium */
-            --primary: #2a4365;
-            --primary-dark: #1e365d;
-            --primary-light: #4299e1;
-            --secondary: #38b2ac;
-            --success: #48bb78;
-            --warning: #ed8936;
-            --danger: #f56565;
-            --dark: #2d3748;
-            --light: #f7fafc;
-            --gray: #e2e8f0;
-            --gray-dark: #a0aec0;
-            
-            /* Sombras premium */
-            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            
-            /* Transiciones suaves */
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f5f7fa;
-            color: var(--dark);
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        
-        /* Header de lujo */
-        .main-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1.5rem 0;
-            box-shadow: var(--shadow-xl);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .main-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjAzKSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3QgZmlsbD0idXJsKCNwYXR0ZXJuKSIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIvPjwvc3ZnPg==');
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .logo {
-            height: 40px;
-            width: auto;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-        }
-        
-        .header-title {
-            font-size: 1.8rem;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        
-        .header-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-top: 0.3rem;
-        }
-        
-        /* Contenedor principal */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-        
-        /* Tarjetas premium */
-        .card {
-            background: white;
-            border-radius: 12px;
-            box-shadow: var(--shadow-lg);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-        
-        .card:hover {
-            box-shadow: var(--shadow-xl);
-            transform: translateY(-2px);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--gray);
-        }
-        
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        
-        /* Tabla de módulos premium */
-        .modules-table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin: 1.5rem 0;
-            font-size: 0.95rem;
-        }
-        
-        .modules-table th {
-            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 500;
-            position: sticky;
-            top: 0;
-        }
-        
-        .modules-table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--gray);
-            vertical-align: middle;
-        }
-        
-        .modules-table tr:last-child td {
-            border-bottom: none;
-        }
-        
-        .modules-table tr:hover td {
-            background-color: rgba(66, 153, 225, 0.05);
-        }
-        
-        .modules-table tr.selected td {
-            background-color: rgba(72, 187, 120, 0.1);
-            border-left: 4px solid var(--success);
-        }
-        
-        .version-input {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid var(--gray);
-            border-radius: 6px;
-            font-family: 'Roboto Mono', monospace;
-            transition: var(--transition);
-        }
-        
-        .version-input:focus {
-            outline: none;
-            border-color: var(--primary-light);
-            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
-        }
-        
-        /* Badges de estado premium */
-        .status-badge {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.35rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            gap: 0.5rem;
-        }
-        
-        .status-badge i {
-            font-size: 0.9rem;
-        }
-        
-        .status-pending {
-            background-color: rgba(237, 137, 54, 0.1);
-            color: var(--warning);
-        }
-        
-        .status-selected {
-            background-color: rgba(72, 187, 120, 0.1);
-            color: var(--success);
-        }
-        
-        .status-deployed {
-            background-color: rgba(66, 153, 225, 0.1);
-            color: var(--primary-light);
-        }
-        
-        .status-stopped {
-            background-color: rgba(160, 174, 192, 0.1);
-            color: var(--gray-dark);
-        }
-        
-        /* Botones premium */
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            gap: 0.5rem;
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .btn i {
-            font-size: 1rem;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(to right, var(--primary), var(--primary-dark));
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: linear-gradient(to right, var(--primary-dark), var(--primary));
-        }
-        
-        .btn-success {
-            background: linear-gradient(to right, var(--success), #38a169);
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: linear-gradient(to right, #38a169, var(--success));
-        }
-        
-        .btn-secondary {
-            background: linear-gradient(to right, var(--secondary), #319795);
-            color: white;
-        }
-        
-        .btn-warning {
-            background: linear-gradient(to right, var(--warning), #dd6b20);
-            color: white;
-        }
-        
-        .btn-danger {
-            background: linear-gradient(to right, var(--danger), #e53e3e);
-            color: white;
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--primary);
-            color: var(--primary);
-        }
-        
-        /* Sección de pasos premium */
-        .step-container {
-            position: relative;
-            margin: 2rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-        }
-        
-        .step-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--gray);
-        }
-        
-        .step-indicator {
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        .step-content {
-            display: none;
-            animation: fadeIn 0.5s ease-out;
-        }
-        
-        .step-content.active {
-            display: block;
-        }
-        
-        .step-title {
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-        
-        .step-description {
-            margin-bottom: 1.5rem;
-            line-height: 1.7;
-        }
-        
-        .step-image-container {
-            margin: 1.5rem 0;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray);
-        }
-        
-        .step-image {
-            width: 100%;
-            display: block;
-            transition: var(--transition);
-        }
-        
-        .step-image:hover {
-            transform: scale(1.02);
-        }
-        
-        .image-caption {
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--gray-dark);
-            margin-top: 0.5rem;
-            font-style: italic;
-        }
-        
-        /* Panel de logs premium */
-        .log-container {
-            background-color: #f8fafc;
-            border-radius: 8px;
-            border: 1px solid var(--gray);
-            padding: 1rem;
-            max-height: 300px;
-            overflow-y: auto;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 0.85rem;
-            margin: 1.5rem 0;
-        }
-        
-        .log-entry {
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .log-time {
-            color: var(--gray-dark);
-            min-width: 80px;
-        }
-        
-        .log-message {
-            flex-grow: 1;
-        }
-        
-        .log-info {
-            color: var(--primary);
-        }
-        
-        .log-success {
-            color: var(--success);
-        }
-        
-        .log-warning {
-            color: var(--warning);
-        }
-        
-        .log-error {
-            color: var(--danger);
-        }
-        
-        /* Animaciones */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                text-align: center;
-                gap: 1rem;
-            }
-            
-            .modules-table {
-                font-size: 0.85rem;
-            }
-            
-            .modules-table th, 
-            .modules-table td {
-                padding: 0.75rem 0.5rem;
-            }
-            
-            .btn {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-        }
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .step { display: none; border: 1px solid #ddd; padding: 20px; margin-bottom: 20px; border-radius: 5px; }
+        .active { display: block; }
+        .navigation { display: flex; justify-content: space-between; margin-top: 20px; }
+        button { padding: 8px 16px; cursor: pointer; }
+        .progress { margin-bottom: 20px; }
+        .checkbox { margin-right: 10px; }
     </style>
 </head>
 <body>
-    <header class="main-header">
-        <div class="header-content">
-            <div class="logo-container">
-                <img src="assets/img/logo-cablevision.png" alt="Cablevisión" class="logo">
-                <div>
-                    <h1 class="header-title">JBoss Deployment Manager</h1>
-                    <p class="header-subtitle">Control de versiones y despliegues</p>
-                </div>
-            </div>
-            <div class="header-actions">
-                <button id="help-btn" class="btn btn-outline">
-                    <i class="fas fa-question-circle"></i> Ayuda
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <div class="container">
-        <!-- Sección de módulos -->
-        <section class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-cubes"></i> Módulos y Versiones
-                </h2>
-                <div class="card-actions">
-                    <button id="refresh-btn" class="btn btn-outline">
-                        <i class="fas fa-sync-alt"></i> Actualizar
-                    </button>
-                </div>
-            </div>
-            
-            <div class="table-responsive">
-                <table class="modules-table" id="modules-table">
-                    <thead>
-                        <tr>
-                            <th>Módulo</th>
-                            <th>Versión Actual</th>
-                            <th>Versión Nueva</th>
-                            <th>Acción</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr data-module="CT">
-                            <td>
-                                <i class="fas fa-box-open"></i> CT
-                            </td>
-                            <td>CT-2.12</td>
-                            <td>
-                                <input type="text" class="version-input" placeholder="CT-2.13">
-                            </td>
-                            <td>Despliegue</td>
-                            <td>
-                                <span class="status-badge status-pending">
-                                    <i class="fas fa-clock"></i> Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr data-module="FM">
-                            <td>
-                                <i class="fas fa-box-open"></i> FM
-                            </td>
-                            <td>FM-2.2.0-V02</td>
-                            <td>
-                                <input type="text" class="version-input" placeholder="FM-2.3.0">
-                            </td>
-                            <td>Despliegue</td>
-                            <td>
-                                <span class="status-badge status-pending">
-                                    <i class="fas fa-clock"></i> Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr data-module="GM">
-                            <td>
-                                <i class="fas fa-box-open"></i> GM
-                            </td>
-                            <td>GM-2.2.0</td>
-                            <td>
-                                <input type="text" class="version-input" placeholder="GM-2.3.0">
-                            </td>
-                            <td>Despliegue</td>
-                            <td>
-                                <span class="status-badge status-pending">
-                                    <i class="fas fa-clock"></i> Pendiente
-                                </span>
-                            </td>
-                        </tr>
-                        <tr data-module="GOT">
-                            <td>
-                                <i class="fas fa-box-open"></i> GOT
-                            </td>
-                            <td>GOT-2.0.2</td>
-                            <td>N/A</td>
-                            <td>Stop Only</td>
-                            <td>
-                                <span class="status-badge status-stopped">
-                                    <i class="fas fa-stop-circle"></i> Detenido
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="action-buttons">
-                <button id="select-all-btn" class="btn btn-secondary">
-                    <i class="fas fa-check-double"></i> Seleccionar Todos
-                </button>
-                <button id="save-selection-btn" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Guardar Selección
-                </button>
-                <button id="deploy-btn" class="btn btn-success">
-                    <i class="fas fa-rocket"></i> Ejecutar Despliegue
-                </button>
-            </div>
-        </section>
-
-        <!-- Sección de instructivo -->
-        <section class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-book-open"></i> Instructivo Paso a Paso
-                </h2>
-            </div>
-            
-            <div class="step-nav">
-                <button id="prev-step" class="btn btn-outline" disabled>
-                    <i class="fas fa-arrow-left"></i> Anterior
-                </button>
-                <span class="step-indicator" id="step-indicator">Paso 1 de 11</span>
-                <button id="next-step" class="btn btn-outline">
-                    Siguiente <i class="fas fa-arrow-right"></i>
-                </button>
-            </div>
-            
-            <div class="step-container">
-                <div class="step-content active" data-step="1">
-                    <h3 class="step-title">
-                        <span class="step-number">1</span> Ingresar a la consola de administración
-                    </h3>
-                    <div class="step-description">
-                        <p>Acceda a la consola de administración de JBoss mediante el siguiente enlace:</p>
-                        <div class="code-block">http://sr-pctrl-ap01.corp.cablevision.com.ar:9990</div>
-                        <p>Utilice las credenciales proporcionadas por el equipo de seguridad.</p>
-                    </div>
-                    <div class="step-image-container">
-                        <img src="assets/img/image1.png" alt="Consola de administración JBoss" class="step-image">
-                        <p class="image-caption">Figura 1: Pantalla de inicio de sesión</p>
-                    </div>
-                </div>
-                
-                <!-- Los demás pasos (2-11) seguirían la misma estructura -->
-                <div class="step-content" data-step="2">
-                    <!-- Contenido del paso 2 -->
-                </div>
-                <!-- ... hasta el paso 11 -->
-            </div>
-        </section>
-
-        <!-- Panel de logs -->
-        <section class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-clipboard-list"></i> Registro de Despliegue
-                </h2>
-                <div class="card-actions">
-                    <button id="clear-log-btn" class="btn btn-outline">
-                        <i class="fas fa-trash-alt"></i> Limpiar
-                    </button>
-                </div>
-            </div>
-            
-            <div class="log-container" id="deployment-log">
-                <div class="log-entry">
-                    <span class="log-time">[10:00:00]</span>
-                    <span class="log-message log-info">Sistema de despliegue inicializado</span>
-                </div>
-            </div>
-            
-            <div class="log-actions">
-                <button id="export-log-btn" class="btn btn-primary">
-                    <i class="fas fa-file-export"></i> Exportar Log
-                </button>
-                <button id="git-auto-btn" class="btn btn-success">
-                    <i class="fab fa-git-alt"></i> Ejecutar Git Auto
-                </button>
-            </div>
-        </section>
+    <h1>Instructivo Paso a Paso - Administración JBoss</h1>
+    
+    <div class="progress">
+        Progreso: <span id="progress-count">0</span>/11 completados
+    </div>
+    
+    <!-- Paso 1 -->
+    <div class="step active" id="step1">
+        <h2>1. Ingresar a la consola de administración</h2>
+        <p>Acceda a la consola de administración de JBoss mediante el siguiente enlace:<br>
+        <a href="http://sr-pctrl-ap01.corp.cablevision.com.ar:9990" target="_blank">http://sr-pctrl-ap01.corp.cablevision.com.ar:9990</a></p>
+        <p>Utilice las credenciales proporcionadas por el equipo de seguridad.</p>
+        <p><em>Figura 1: Pantalla de inicio de sesión</em></p>
+        <label><input type="checkbox" class="checkbox" data-step="1"> Marcar como completado</label>
+    </div>
+    
+    <!-- Paso 2 -->
+    <div class="step" id="step2">
+        <h2>2. [Título del paso 2]</h2>
+        <p>[Contenido del paso 2]</p>
+        <label><input type="checkbox" class="checkbox" data-step="2"> Marcar como completado</label>
+    </div>
+    
+    <!-- Agregar pasos 3-11 de la misma forma -->
+    
+    <div class="navigation">
+        <button id="prev-btn" disabled>Anterior</button>
+        <span id="step-counter">Paso 1 de 11</span>
+        <button id="next-btn">Siguiente</button>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <button id="save-btn">Guardar cambios</button>
     </div>
 
     <script>
-        // Implementación completa de la funcionalidad
-        document.addEventListener('DOMContentLoaded', function() {
-            // Variables globales
-            const modulesTable = document.getElementById('modules-table');
-            const selectAllBtn = document.getElementById('select-all-btn');
-            const saveSelectionBtn = document.getElementById('save-selection-btn');
-            const deployBtn = document.getElementById('deploy-btn');
-            const prevStepBtn = document.getElementById('prev-step');
-            const nextStepBtn = document.getElementById('next-step');
-            const stepIndicator = document.getElementById('step-indicator');
-            const deploymentLog = document.getElementById('deployment-log');
-            const clearLogBtn = document.getElementById('clear-log-btn');
-            const exportLogBtn = document.getElementById('export-log-btn');
-            const gitAutoBtn = document.getElementById('git-auto-btn');
+        let currentStep = 1;
+        const totalSteps = 11;
+        const completedSteps = JSON.parse(localStorage.getItem('completedSteps')) || Array(totalSteps).fill(false);
+        
+        // Actualizar UI
+        function updateUI() {
+            // Actualizar pasos
+            document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+            document.getElementById(`step${currentStep}`).classList.add('active');
             
-            let currentStep = 1;
-            const totalSteps = 11;
-            let selectedModules = [];
+            // Actualizar contador
+            document.getElementById('step-counter').textContent = `Paso ${currentStep} de ${totalSteps}`;
             
-            // Inicialización
-            initStepNavigation();
-            initModuleSelection();
-            initLogSystem();
-            initGitAuto();
+            // Actualizar botones de navegación
+            document.getElementById('prev-btn').disabled = currentStep === 1;
+            document.getElementById('next-btn').disabled = currentStep === totalSteps;
             
-            // Navegación por pasos
-            function initStepNavigation() {
-                updateStepIndicator();
-                
-                prevStepBtn.addEventListener('click', function() {
-                    if (currentStep > 1) {
-                        document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.remove('active');
-                        currentStep--;
-                        document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.add('active');
-                        updateStepIndicator();
-                    }
-                });
-                
-                nextStepBtn.addEventListener('click', function() {
-                    if (currentStep < totalSteps) {
-                        document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.remove('active');
-                        currentStep++;
-                        document.querySelector(`.step-content[data-step="${currentStep}"]`).classList.add('active');
-                        updateStepIndicator();
-                    }
-                });
+            // Actualizar checkboxes
+            document.querySelectorAll('.checkbox').forEach((cb, index) => {
+                cb.checked = completedSteps[index];
+            });
+            
+            // Actualizar progreso
+            const completedCount = completedSteps.filter(Boolean).length;
+            document.getElementById('progress-count').textContent = completedCount;
+        }
+        
+        // Event listeners
+        document.getElementById('prev-btn').addEventListener('click', () => {
+            if (currentStep > 1) {
+                currentStep--;
+                updateUI();
             }
-            
-            function updateStepIndicator() {
-                stepIndicator.textContent = `Paso ${currentStep} de ${totalSteps}`;
-                prevStepBtn.disabled = currentStep === 1;
-                nextStepBtn.disabled = currentStep === totalSteps;
-            }
-            
-            // Selección de módulos
-            function initModuleSelection() {
-                // Seleccionar fila al hacer clic
-                modulesTable.querySelectorAll('tbody tr').forEach(row => {
-                    // No permitir selección en GOT (solo stop)
-                    if (row.dataset.module === 'GOT') {
-                        row.style.cursor = 'not-allowed';
-                        return;
-                    }
-                    
-                    row.addEventListener('click', function(e) {
-                        // No seleccionar si se hace clic en un input
-                        if (e.target.tagName === 'INPUT') return;
-                        
-                        this.classList.toggle('selected');
-                        updateSelectedModules();
-                    });
-                });
-                
-                // Seleccionar todos los módulos
-                selectAllBtn.addEventListener('click', function() {
-                    const selectableRows = modulesTable.querySelectorAll('tbody tr:not([data-module="GOT"])');
-                    const allSelected = Array.from(selectableRows).every(row => row.classList.contains('selected'));
-                    
-                    selectableRows.forEach(row => {
-                        if (allSelected) {
-                            row.classList.remove('selected');
-                        } else {
-                            row.classList.add('selected');
-                        }
-                    });
-                    
-                    updateSelectedModules();
-                });
-                
-                // Guardar selección
-                saveSelectionBtn.addEventListener('click', function() {
-                    if (selectedModules.length === 0) {
-                        addLogEntry('No hay módulos seleccionados', 'warning');
-                        return;
-                    }
-                    
-                    addLogEntry(`Selección guardada para: ${selectedModules.join(', ')}`, 'success');
-                    
-                    // Actualizar estados
-                    selectedModules.forEach(module => {
-                        const row = modulesTable.querySelector(`tr[data-module="${module}"]`);
-                        const statusBadge = row.querySelector('.status-badge');
-                        
-                        statusBadge.className = 'status-badge status-selected';
-                        statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Seleccionado';
-                    });
-                });
-                
-                // Ejecutar despliegue
-                deployBtn.addEventListener('click', function() {
-                    if (selectedModules.length === 0) {
-                        addLogEntry('No hay módulos seleccionados para desplegar', 'warning');
-                        return;
-                    }
-                    
-                    addLogEntry('Iniciando proceso de despliegue...', 'info');
-                    simulateDeployment();
-                });
-            }
-            
-            function updateSelectedModules() {
-                selectedModules = Array.from(modulesTable.querySelectorAll('tbody tr.selected'))
-                    .map(row => row.dataset.module);
-            }
-            
-            // Simulación de despliegue
-            function simulateDeployment() {
-                deployBtn.disabled = true;
-                deployBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Desplegando...';
-                
-                const steps = [
-                    { delay: 1000, message: 'Verificando conexión con servidor JBoss...' },
-                    { delay: 1500, message: 'Deteniendo módulos seleccionados...' },
-                    { delay: 2000, message: 'Subiendo nuevos archivos WAR...' },
-                    { delay: 2500, message: 'Iniciando módulos...' },
-                    { delay: 1000, message: 'Despliegue completado exitosamente', isFinal: true }
-                ];
-                
-                steps.forEach((step, index) => {
-                    setTimeout(() => {
-                        addLogEntry(step.message, step.isFinal ? 'success' : 'info');
-                        
-                        if (step.isFinal) {
-                            deployBtn.disabled = false;
-                            deployBtn.innerHTML = '<i class="fas fa-rocket"></i> Ejecutar Despliegue';
-                            
-                            // Actualizar estados
-                            selectedModules.forEach(module => {
-                                const row = modulesTable.querySelector(`tr[data-module="${module}"]`);
-                                const statusBadge = row.querySelector('.status-badge');
-                                
-                                statusBadge.className = 'status-badge status-deployed';
-                                statusBadge.innerHTML = '<i class="fas fa-check-circle"></i> Desplegado';
-                            });
-                        }
-                    }, step.delay);
-                });
-            }
-            
-            // Sistema de logs
-            function initLogSystem() {
-                clearLogBtn.addEventListener('click', function() {
-                    deploymentLog.innerHTML = '';
-                    addLogEntry('Registro limpiado', 'info');
-                });
-                
-                exportLogBtn.addEventListener('click', function() {
-                    const logContent = Array.from(deploymentLog.children)
-                        .map(entry => entry.textContent)
-                        .join('\n');
-                    
-                    const blob = new Blob([logContent], { type: 'text/plain' });
-                    const url = URL.createObjectURL(blob);
-                    
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `deploy-log-${new Date().toISOString().slice(0,10)}.txt`;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    
-                    addLogEntry('Registro exportado como archivo TXT', 'success');
-                });
-            }
-            
-            function addLogEntry(message, type = 'info') {
-                const now = new Date();
-                const timeString = `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
-                
-                const logEntry = document.createElement('div');
-                logEntry.className = 'log-entry';
-                logEntry.innerHTML = `
-                    <span class="log-time">${timeString}</span>
-                    <span class="log-message log-${type}">${message}</span>
-                `;
-                
-                deploymentLog.appendChild(logEntry);
-                deploymentLog.scrollTop = deploymentLog.scrollHeight;
-            }
-            
-            // Git Auto
-            function initGitAuto() {
-                gitAutoBtn.addEventListener('click', function() {
-                    if (selectedModules.length === 0) {
-                        addLogEntry('No hay cambios para confirmar en Git', 'warning');
-                        return;
-                    }
-                    
-                    addLogEntry('Ejecutando Git Auto...', 'info');
-                    executeGitAuto();
-                });
-            }
-            
-            function executeGitAuto() {
-                gitAutoBtn.disabled = true;
-                gitAutoBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
-                
-                const commands = [
-                    { command: 'git add .', output: 'Agregando cambios al staging area...' },
-                    { command: `git commit -m "Despliegue ${selectedModules.join(', ')}"`, output: 'Creando commit...' },
-                    { command: 'git push origin main', output: 'Subiendo cambios al repositorio...' }
-                ];
-                
-                commands.forEach((cmd, index) => {
-                    setTimeout(() => {
-                        addLogEntry(`$ ${cmd.command}`, 'info');
-                        addLogEntry(cmd.output, 'info');
-                        
-                        if (index === commands.length - 1) {
-                            setTimeout(() => {
-                                addLogEntry('Proceso Git completado exitosamente', 'success');
-                                gitAutoBtn.disabled = false;
-                                gitAutoBtn.innerHTML = '<i class="fab fa-git-alt"></i> Ejecutar Git Auto';
-                            }, 500);
-                        }
-                    }, index * 2000);
-                });
-            }
-            
-            // Mensaje inicial
-            addLogEntry('Sistema listo. Seleccione módulos para comenzar.', 'info');
         });
+        
+        document.getElementById('next-btn').addEventListener('click', () => {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                updateUI();
+            }
+        });
+        
+        document.querySelectorAll('.checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const step = parseInt(this.dataset.step) - 1;
+                completedSteps[step] = this.checked;
+                localStorage.setItem('completedSteps', JSON.stringify(completedSteps));
+                updateUI();
+            });
+        });
+        
+        document.getElementById('save-btn').addEventListener('click', () => {
+            alert('Cambios guardados correctamente');
+            // Aquí podrías agregar lógica para guardar en servidor si es necesario
+        });
+        
+        // Inicializar
+        updateUI();
     </script>
 </body>
 </html>
