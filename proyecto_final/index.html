@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instructivo de Despliegue Manual - JBoss</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 2rem; background: #f4f6f9; color: #333; }
+    h1, h2 { text-align: center; color: #2c3e50; }
+    .table-container { overflow-x: auto; margin-bottom: 2rem; }
+    table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    th, td { border: 1px solid #ccc; padding: 1rem; text-align: left; }
+    th { background: #3498db; color: white; }
+    tr:nth-child(even) { background-color: #f2f2f2; }
+    .button { padding: 10px 20px; background: #2ecc71; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+    .button:hover { background: #27ae60; }
+    .war-selector { padding: 1rem; background: #e8f5e9; border-radius: 8px; margin-bottom: 2rem; }
+    .war-selector input[type="checkbox"] { transform: scale(1.2); margin-right: 10px; }
+    .section { margin-bottom: 2rem; }
+    .icon { margin-right: 8px; }
+    select { padding: 0.5rem; }
+    img { max-width: 100%; margin: 1rem 0; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+  </style>
+</head>
+<body>
+  <h1><i class="fas fa-server icon"></i>Instructivo de Despliegue Manual – Aplicaciones en JBoss</h1>
+
+  <div class="section">
+    <h2><i class="fas fa-cubes icon"></i>Módulos y Versiones</h2>
+    <div class="table-container">
+      <table id="modulos-table">
+        <thead>
+          <tr>
+            <th>Módulo</th>
+            <th>Versión actual</th>
+            <th>Acción durante el pasaje</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>CT</td><td>CT-2.12</td><td>Despliegue nueva versión</td>
+            <td><select><option>Actualiza</option><option>No actualiza</option><option>Se stopea</option></select></td>
+          </tr>
+          <tr>
+            <td>FM</td><td>FM-2.2.0-V02</td><td>Despliegue nueva versión</td>
+            <td><select><option>Actualiza</option><option>No actualiza</option><option>Se stopea</option></select></td>
+          </tr>
+          <tr>
+            <td>GM</td><td>GM-2.2.0</td><td>Despliegue nueva versión</td>
+            <td><select><option>Actualiza</option><option>No actualiza</option><option>Se stopea</option></select></td>
+          </tr>
+          <tr>
+            <td>GOT</td><td>GOT-2.0.2</td><td>No se reemplaza WAR, solo Stopearlo</td>
+            <td><select><option>Actualiza</option><option>No actualiza</option><option selected>Se stopea</option></select></td>
+          </tr>
+        </tbody>
+      </table>
+      <button class="button" onclick="guardarCambios()"><i class="fas fa-save icon"></i>Guardar</button>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-check-square icon"></i>WAR a desplegar</h2>
+    <div class="war-selector">
+      <label><input type="checkbox" checked>PROD_FM</label>
+      <label><input type="checkbox" checked>PROD_CC</label>
+      <label><input type="checkbox" checked>PROD_GM</label>
+      <label><input type="checkbox">PROD_GOT (solo Stop)</label>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2><i class="fas fa-list-ol icon"></i>Pasos para el Despliegue</h2>
+    <ol>
+      <li>Ingresar a <a href="http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html" target="_blank">consola JBoss</a>.</li>
+      <img src="images/a.png" alt="Paso 1">
+      <li>Acceder a la pestaña <strong>Runtime</strong> y luego a <strong>Server Groups</strong>.</li>
+      <img src="images/b.png" alt="Paso 2">
+      <li>Detener el grupo correspondiente con <em>Stop</em>.</li>
+      <img src="images/c.png" alt="Paso 3">
+      <li>Ir a <strong>Deployments</strong> y deshabilitar el WAR actual.</li>
+      <img src="images/d.png" alt="Paso 4">
+      <li>Subir nuevo WAR desde <code>S:\Publico\jboss\04-06-2025\[FM|GM|CT]</code>.</li>
+      <img src="images/e.png" alt="Paso 5">
+      <li>Iniciar el servidor nuevamente y verificar el estado del WAR.</li>
+      <img src="images/f.png" alt="Paso 6">
+      <li>Rollback: si hay errores, volver al WAR anterior con <em>Enable</em>.</li>
+      <img src="images/g.png" alt="Paso 7">
+    </ol>
+  </div>
+
+  <script>
+    function guardarCambios() {
+      alert('Cambios guardados. Puedes conectar esto con git-auto.js si deseas guardar en backend.');
+    }
+  </script>
+  <script src="js/git-auto.js"></script>
+</body>
+</html>

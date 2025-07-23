@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructivo Profesional - JBoss</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Instructivo interactivo para el despliegue de módulos en JBoss</h1>
+
+  <div class="env-selector">
+    <label><input type="checkbox" data-env="PROD_FM" checked> PROD_FM</label>
+    <label><input type="checkbox" data-env="PROD_CC" checked> PROD_CC</label>
+    <label><input type="checkbox" data-env="PROD_GM" checked> PROD_GM</label>
+    <label><input type="checkbox" data-env="PROD_GOT" checked> PROD_GOT</label>
+  </div>
+
+  <div class="cards">
+    <div class="card" data-module="CT">
+      <div><i class="fas fa-box card-icon"></i> <strong>CT</strong> - CT-2.12</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
+      <select data-module="CT">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="card" data-module="FM">
+      <div><i class="fas fa-box card-icon"></i> <strong>FM</strong> - FM-2.2.0-V02</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
+      <select data-module="FM">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="card" data-module="GM">
+      <div><i class="fas fa-box card-icon"></i> <strong>GM</strong> - GM-2.2.0</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
+      <select data-module="GM">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="card" data-module="GOT">
+      <div><i class="fas fa-box card-icon"></i> <strong>GOT</strong> - GOT-2.0.2</div>
+      <div class="status">⛔ Solo detener servicio</div>
+      <select data-module="GOT">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option selected>Se stopea</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button class="button" id="guardar-btn"><i class="fas fa-save"></i> Guardar</button>
+  </div>
+
+  <div class="steps">
+    
+    <div class="step-image" id="step-1" style="display: block;">
+      <h2>Paso 1 – Acceso a la Consola JBoss</h2>
+      <p>Abrir navegador y acceder a la consola de administración de JBoss.</p>
+      <p><code>http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html</code></p>
+      <div style="text-align: center;">
+        <img src="images/a.png" alt="Acceso a la Consola JBoss" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-2" style="display: none;">
+      <h2>Paso 2 – Panel principal</h2>
+      <p>Una vez dentro, se mostrará el panel principal.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/b.png" alt="Panel principal" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-3" style="display: none;">
+      <h2>Paso 3 – Ir a Runtime y Server Groups</h2>
+      <p>Seleccionar la pestaña 'Runtime' y hacer clic en 'Server Groups'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/c.png" alt="Ir a Runtime y Server Groups" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-4" style="display: none;">
+      <h2>Paso 4 – Detener grupo de servidor</h2>
+      <p>Seleccionar el grupo de servidor correspondiente y presionar 'Stop'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/d.png" alt="Detener grupo de servidor" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-5" style="display: none;">
+      <h2>Paso 5 – Ir a la pestaña Deployments</h2>
+      <p>Desde el panel superior, navegar a 'Deployments'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/e.png" alt="Ir a la pestaña Deployments" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-6" style="display: none;">
+      <h2>Paso 6 – Deshabilitar WAR actual</h2>
+      <p>Identificar el WAR activo (ícono verde) y hacer clic en 'Disable'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/f.png" alt="Deshabilitar WAR actual" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-7" style="display: none;">
+      <h2>Paso 7 – Subir nuevo archivo WAR</h2>
+      <p>Hacer clic en 'Upload new deployment'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/g.png" alt="Subir nuevo archivo WAR" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-8" style="display: none;">
+      <h2>Paso 8 – Seleccionar archivo WAR</h2>
+      <p>Navegar hasta la carpeta correspondiente y seleccionar el WAR.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/h.png" alt="Seleccionar archivo WAR" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-9" style="display: none;">
+      <h2>Paso 9 – Confirmar y subir</h2>
+      <p>Confirmar el archivo seleccionado y presionar 'Next'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/i.png" alt="Confirmar y subir" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-10" style="display: none;">
+      <h2>Paso 10 – Iniciar servidor</h2>
+      <p>Volver a Runtime y presionar 'Start' en el grupo de servidor.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/j.png" alt="Iniciar servidor" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+    <div class="step-image" id="step-11" style="display: none;">
+      <h2>Paso 11 – Rollback – Restaurar versión anterior</h2>
+      <p>1. Detener el servidor (Runtime > Stop o Kill).<br>2. Deshabilitar el WAR actual.<br>3. Habilitar el WAR anterior (Enable).<br>4. Reiniciar el servidor.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/k.png" alt="Rollback – Restaurar versión anterior" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
+    </div>
+    
+<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+  <span onclick="document.getElementById('modal').style.display='none'" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
+  <img id="modal-img" style="max-width:90%; max-height:90%;">
+</div>
+<script>
+function ampliarImagen(src) {
+  const modal = document.getElementById('modal');
+  document.getElementById('modal-img').src = src;
+  modal.style.display = 'flex';
+}
+</script>
+
+    <div style="text-align:center; margin-top: 1rem;">
+      <button id="prev" class="button" style="margin-right:1rem;"><i class="fas fa-arrow-left"></i> Anterior</button>
+      <button id="next" class="button"><i class="fas fa-arrow-right"></i> Siguiente</button>
+    </div>
+  </div>
+
+  <script src="js/git-auto.js"></script>
+  
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const checkboxes = document.querySelectorAll("input[type='checkbox'][data-env]");
+  const cards = document.querySelectorAll(".card");
+
+  function updateVisibility() {
+    const selected = Array.from(checkboxes)
+      .filter(chk => chk.checked)
+      .map(chk => chk.dataset.env.replace("PROD_", ""));
+
+    cards.forEach(card => {
+      const module = card.dataset.module;
+      const status = card.querySelector("select").value;
+      if (selected.includes(module) && (status === "Actualiza" || status === "Se stopea")) {
+        card.style.display = "flex";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
+  checkboxes.forEach(chk => chk.addEventListener("change", updateVisibility));
+  document.querySelectorAll("select[data-module]").forEach(sel => sel.addEventListener("change", updateVisibility));
+  updateVisibility();
+
+  // Imagen por página
+  let current = 1;
+  const total = 11;
+  const showPage = (n) => {
+    for (let i = 1; i <= total; i++) {
+      document.getElementById("step-" + i).style.display = (i === n ? "block" : "none");
+    }
+  };
+  document.getElementById("next").onclick = () => { if (current < total) showPage(++current); };
+  document.getElementById("prev").onclick = () => { if (current > 1) showPage(--current); };
+});
+</script>
+
+</body>
+</html>
