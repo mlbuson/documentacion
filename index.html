@@ -1,105 +1,11 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Instructivo Interactivo - JBoss</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #6a11cb, #2575fc);
-      color: #333;
-    }
-    h1 {
-      text-align: center;
-      padding: 2rem;
-      color: white;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1rem;
-      padding: 2rem;
-    }
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 1.5rem;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      align-items: flex-start;
-    }
-    .card-icon {
-      font-size: 2rem;
-    }
-    .status {
-      background: #e9fcef;
-      color: #27ae60;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-weight: bold;
-    }
-    .danger {
-      background: #fdecea;
-      color: #e74c3c;
-    }
-    select {
-      padding: 0.5rem;
-      margin-top: 0.5rem;
-      border-radius: 6px;
-    }
-    .steps {
-      background: white;
-      border-radius: 20px;
-      margin: 2rem;
-      padding: 2rem;
-    }
-    .step {
-      margin-bottom: 2rem;
-    }
-    .step img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      margin-top: 1rem;
-    }
-    .step-number {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #2575fc;
-    }
-    .button-container {
-      text-align: center;
-      margin: 2rem 0;
-    }
-    .button {
-      background: #27ae60;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .button:hover {
-      background: #219150;
-    }
-    .env-selector {
-      text-align: center;
-      background: #e1f5fe;
-      padding: 1rem;
-      margin: 2rem;
-      border-radius: 15px;
-    }
-    .env-selector label {
-      margin: 0 1rem;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <h1>Instructivo interactivo para el despliegue de módulos en JBoss</h1>
@@ -107,7 +13,7 @@
   <div class="cards">
     <div class="card">
       <div><i class="fas fa-cogs card-icon"></i> <strong>CT</strong> - CT-2.12</div>
-      <div class="status">⬆️ Despliegue nueva versión</div>
+      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
       <select data-module="CT">
         <option>Actualiza</option>
         <option>No actualiza</option>
@@ -116,7 +22,7 @@
     </div>
     <div class="card">
       <div><i class="fas fa-file-alt card-icon"></i> <strong>FM</strong> - FM-2.2.0-V02</div>
-      <div class="status">⬆️ Despliegue nueva versión</div>
+      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
       <select data-module="FM">
         <option>Actualiza</option>
         <option>No actualiza</option>
@@ -125,7 +31,7 @@
     </div>
     <div class="card">
       <div><i class="fas fa-users card-icon"></i> <strong>GM</strong> - GM-2.2.0</div>
-      <div class="status">⬆️ Despliegue nueva versión</div>
+      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
       <select data-module="GM">
         <option>Actualiza</option>
         <option>No actualiza</option>
@@ -134,11 +40,11 @@
     </div>
     <div class="card">
       <div><i class="fas fa-stop-circle card-icon" style="color:red"></i> <strong>GOT</strong> - GOT-2.0.2</div>
-      <div class="status danger">⛔ Solo detener servicio</div>
+      <div class="status stopea">⛔ Solo detener servicio</div>
       <select data-module="GOT">
         <option>Actualiza</option>
         <option>No actualiza</option>
-        <option>Se stopea</option>
+        <option selected>Se stopea</option>
       </select>
     </div>
   </div>
@@ -151,17 +57,23 @@
   </div>
 
   <div class="steps">
-    <div class="step"><div class="step-number">1. Acceder a la Consola JBoss</div><p>Abrir el navegador y acceder a <a href="http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html" target="_blank">http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html</a></p><img src="images/a.png"></div>
-    <div class="step"><div class="step-number">2. Acceder a Runtime y Server Groups</div><img src="images/b.png"></div>
-    <div class="step"><div class="step-number">3. Detener grupo de servidor</div><img src="images/c.png"></div>
-    <div class="step"><div class="step-number">4. Ir a Deployments</div><img src="images/d.png"></div>
-    <div class="step"><div class="step-number">5. Deshabilitar WAR actual</div><img src="images/e.png"></div>
-    <div class="step"><div class="step-number">6. Subir nuevo WAR</div><img src="images/f.png"></div>
-    <div class="step"><div class="step-number">7. Seleccionar archivo WAR</div><img src="images/g.png"></div>
-    <div class="step"><div class="step-number">8. Confirmar y subir archivo</div><img src="images/h.png"></div>
-    <div class="step"><div class="step-number">9. Iniciar servidor</div><img src="images/i.png"></div>
-    <div class="step"><div class="step-number">10. Validar WAR desplegado</div><img src="images/j.png"></div>
-    <div class="step"><div class="step-number">11. Rollback si es necesario</div><img src="images/k.png"></div>
+    <div class="step"><div class="step-number">1. Acceso a la Consola JBoss</div><p>Abrir el navegador web y acceder a <a href="http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html" target="_blank">http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html</a></p><img src="images/a.png"></div>
+    <div class="step"><div class="step-number">2. Panel principal</div><img src="images/b.png"></div>
+    <div class="step"><div class="step-number">3. Ir a Runtime y seleccionar Server Groups</div><img src="images/c.png"></div>
+    <div class="step"><div class="step-number">4. Detener el grupo de servidor correspondiente</div><img src="images/d.png"></div>
+    <div class="step"><div class="step-number">5. Ir a la pestaña Deployments</div><img src="images/e.png"></div>
+    <div class="step"><div class="step-number">6. Deshabilitar el WAR actual</div><img src="images/f.png"></div>
+    <div class="step"><div class="step-number">7. Subir nuevo archivo WAR</div><img src="images/g.png"></div>
+    <div class="step"><div class="step-number">8. Seleccionar el archivo WAR desde la carpeta</div><img src="images/h.png"></div>
+    <div class="step"><div class="step-number">9. Confirmar archivo seleccionado y subir</div><img src="images/i.png"></div>
+    <div class="step"><div class="step-number">10. Iniciar nuevamente el servidor</div><img src="images/j.png"></div>
+    <div class="step"><div class="step-number">11. Rollback – Restaurar versión anterior del WAR</div>
+      <p>1. Detener el servidor (Runtime &gt; Stop o Kill).<br>
+      2. Ir a Deployments y deshabilitar el WAR actual.<br>
+      3. Habilitar el WAR anterior (Enable).<br>
+      4. Volver a Runtime y reiniciar el servidor.</p>
+      <img src="images/k.png">
+    </div>
   </div>
 
   <div class="button-container">
