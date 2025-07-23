@@ -2,141 +2,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Instructivo Despliegue JBoss</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instructivo Despliegue JBoss</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Instructivo Despliegue JBoss</h1>
-  </header>
-
-  <section id="modulos">
-    <h2>Módulos</h2>
-    <div class="card-grid">
-      <div class="card" data-module="PROD_FM">
-        <i class="fas fa-box"></i>
-        <h3>PROD_FM</h3>
-        <select data-module="PROD_FM">
-          <option value="actualiza">Actualiza</option>
-          <option value="no actualiza">No actualiza</option>
-          <option value="se stopea">Se stopea</option>
-        </select>
-      </div>
-      <div class="card" data-module="PROD_CC">
-        <i class="fas fa-box"></i>
-        <h3>PROD_CC</h3>
-        <select data-module="PROD_CC">
-          <option value="actualiza">Actualiza</option>
-          <option value="no actualiza">No actualiza</option>
-          <option value="se stopea">Se stopea</option>
-        </select>
-      </div>
-      <div class="card" data-module="PROD_GM">
-        <i class="fas fa-box"></i>
-        <h3>PROD_GM</h3>
-        <select data-module="PROD_GM">
-          <option value="actualiza">Actualiza</option>
-          <option value="no actualiza">No actualiza</option>
-          <option value="se stopea">Se stopea</option>
-        </select>
-      </div>
-      <div class="card" data-module="PROD_GOT">
-        <i class="fas fa-box"></i>
-        <h3>PROD_GOT</h3>
-        <select data-module="PROD_GOT">
-          <option value="actualiza">Actualiza</option>
-          <option value="no actualiza">No actualiza</option>
-          <option value="se stopea">Se stopea</option>
-        </select>
-      </div>
-    </div>
-  </section>
-
-  <section id="imagenes">
-    <h2>Pasos del Proceso</h2>
-    <div class="image-gallery">
-
-      <div class="step">
-        <h3>Paso 1</h3>
-        <img src="assets/img/154fa349-e6da-4d13-9f8c-773efdfb727f.png" alt="Paso 1" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 2</h3>
-        <img src="assets/img/18b20565-0e49-4ed8-b778-8b55fc5f08bb.png" alt="Paso 2" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 3</h3>
-        <img src="assets/img/1b884716-cadf-469b-956e-83992b8d5deb.png" alt="Paso 3" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 4</h3>
-        <img src="assets/img/524b9f5b-c967-40d8-9fde-1a517b8ede8f.png" alt="Paso 4" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 5</h3>
-        <img src="assets/img/635ffed3-d117-429f-93f8-c90da0de18bc.png" alt="Paso 5" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 6</h3>
-        <img src="assets/img/7a1f41a2-21b6-445a-bec1-180988c055be.png" alt="Paso 6" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 7</h3>
-        <img src="assets/img/8456e9c7-c48d-4bce-a865-8445d9040c44.png" alt="Paso 7" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 8</h3>
-        <img src="assets/img/961d4353-c51e-43db-9dbb-3f308e75a315.png" alt="Paso 8" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 9</h3>
-        <img src="assets/img/aa0a132e-9ce2-4595-a410-44c72a32a290.png" alt="Paso 9" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 10</h3>
-        <img src="assets/img/b097eb61-d500-415a-b898-c629b8455976.png" alt="Paso 10" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 11</h3>
-        <img src="assets/img/bfe06e62-b45d-44c0-9ef5-5d01afb0b642.png" alt="Paso 11" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 12</h3>
-        <img src="assets/img/df5cdd87-dd6a-40ee-b1bf-704376dc0194.png" alt="Paso 12" onclick="ampliarImagen(this.src)">
-      </div>
-    
-      <div class="step">
-        <h3>Paso 13</h3>
-        <img src="assets/img/fd06d5c2-55ea-4a97-af99-77d78002089c.png" alt="Paso 13" onclick="ampliarImagen(this.src)">
-      </div>
-    
-    </div>
-  </section>
-
-  <div id="modal" onclick="this.style.display='none'">
-    <img id="modal-img" src="">
-  </div>
-
-  <script src="assets/js/git-auto.js"></script>
-  <script>
-    function ampliarImagen(src) {
-      document.getElementById("modal").style.display = "flex";
-      document.getElementById("modal-img").src = src;
-    }
-  </script>
+    <header class="main-header">
+        <h1><i class="fa-solid fa-sitemap"></i> Instructivo Interactivo para el Despliegue de Módulos en JBoss</h1>
+    </header>
+    <main id="app">
+        <!-- Contenido dinámico será insertado aquí -->
+    </main>
+    <script src="assets/js/git-auto.js"></script>
+    <script src="assets/js/ui-handler.js"></script>
+    <script src="assets/js/content-loader.js"></script>
 </body>
 </html>
