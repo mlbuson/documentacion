@@ -63,60 +63,116 @@
   <div class="steps">
     
     <div class="step-image" id="step-1" style="display: block;">
-      <h2>Paso 1</h2>
-      <img src="images/a.png" alt="Paso 1" />
+      <h2>Paso 1 – Acceso a la Consola JBoss</h2>
+      <p>Abrir navegador y acceder a la consola de administración de JBoss.</p>
+      <p><code>http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html</code></p>
+      <div style="text-align: center;">
+        <img src="images/a.png" alt="Acceso a la Consola JBoss" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-2" style="display: none;">
-      <h2>Paso 2</h2>
-      <img src="images/b.png" alt="Paso 2" />
+      <h2>Paso 2 – Panel principal</h2>
+      <p>Una vez dentro, se mostrará el panel principal.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/b.png" alt="Panel principal" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-3" style="display: none;">
-      <h2>Paso 3</h2>
-      <img src="images/c.png" alt="Paso 3" />
+      <h2>Paso 3 – Ir a Runtime y Server Groups</h2>
+      <p>Seleccionar la pestaña 'Runtime' y hacer clic en 'Server Groups'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/c.png" alt="Ir a Runtime y Server Groups" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-4" style="display: none;">
-      <h2>Paso 4</h2>
-      <img src="images/d.png" alt="Paso 4" />
+      <h2>Paso 4 – Detener grupo de servidor</h2>
+      <p>Seleccionar el grupo de servidor correspondiente y presionar 'Stop'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/d.png" alt="Detener grupo de servidor" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-5" style="display: none;">
-      <h2>Paso 5</h2>
-      <img src="images/e.png" alt="Paso 5" />
+      <h2>Paso 5 – Ir a la pestaña Deployments</h2>
+      <p>Desde el panel superior, navegar a 'Deployments'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/e.png" alt="Ir a la pestaña Deployments" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-6" style="display: none;">
-      <h2>Paso 6</h2>
-      <img src="images/f.png" alt="Paso 6" />
+      <h2>Paso 6 – Deshabilitar WAR actual</h2>
+      <p>Identificar el WAR activo (ícono verde) y hacer clic en 'Disable'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/f.png" alt="Deshabilitar WAR actual" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-7" style="display: none;">
-      <h2>Paso 7</h2>
-      <img src="images/g.png" alt="Paso 7" />
+      <h2>Paso 7 – Subir nuevo archivo WAR</h2>
+      <p>Hacer clic en 'Upload new deployment'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/g.png" alt="Subir nuevo archivo WAR" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-8" style="display: none;">
-      <h2>Paso 8</h2>
-      <img src="images/h.png" alt="Paso 8" />
+      <h2>Paso 8 – Seleccionar archivo WAR</h2>
+      <p>Navegar hasta la carpeta correspondiente y seleccionar el WAR.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/h.png" alt="Seleccionar archivo WAR" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-9" style="display: none;">
-      <h2>Paso 9</h2>
-      <img src="images/i.png" alt="Paso 9" />
+      <h2>Paso 9 – Confirmar y subir</h2>
+      <p>Confirmar el archivo seleccionado y presionar 'Next'.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/i.png" alt="Confirmar y subir" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-10" style="display: none;">
-      <h2>Paso 10</h2>
-      <img src="images/j.png" alt="Paso 10" />
+      <h2>Paso 10 – Iniciar servidor</h2>
+      <p>Volver a Runtime y presionar 'Start' en el grupo de servidor.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/j.png" alt="Iniciar servidor" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
     <div class="step-image" id="step-11" style="display: none;">
-      <h2>Paso 11</h2>
-      <img src="images/k.png" alt="Paso 11" />
+      <h2>Paso 11 – Rollback – Restaurar versión anterior</h2>
+      <p>1. Detener el servidor (Runtime > Stop o Kill).<br>2. Deshabilitar el WAR actual.<br>3. Habilitar el WAR anterior (Enable).<br>4. Reiniciar el servidor.</p>
+      
+      <div style="text-align: center;">
+        <img src="images/k.png" alt="Rollback – Restaurar versión anterior" style="max-width:80%; cursor: pointer;" onclick="ampliarImagen(this.src)" />
+      </div>
     </div>
     
+<div id="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+  <span onclick="document.getElementById('modal').style.display='none'" style="position:absolute; top:20px; right:30px; font-size:2rem; color:white; cursor:pointer;">&times;</span>
+  <img id="modal-img" style="max-width:90%; max-height:90%;">
+</div>
+<script>
+function ampliarImagen(src) {
+  const modal = document.getElementById('modal');
+  document.getElementById('modal-img').src = src;
+  modal.style.display = 'flex';
+}
+</script>
+
     <div style="text-align:center; margin-top: 1rem;">
       <button id="prev" class="button" style="margin-right:1rem;"><i class="fas fa-arrow-left"></i> Anterior</button>
       <button id="next" class="button"><i class="fas fa-arrow-right"></i> Siguiente</button>
