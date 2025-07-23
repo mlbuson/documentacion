@@ -1,46 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Instructivo Interactivo - JBoss</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructivo Profesional - JBoss</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1>Instructivo interactivo para el despliegue de módulos en JBoss</h1>
 
   <div class="cards">
-    <div class="card">
-      <div><i class="fas fa-cogs card-icon"></i> <strong>CT</strong> - CT-2.12</div>
-      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
+    <div class="card" data-module="CT">
+      <div><i class="fas fa-box card-icon"></i> <strong>CT</strong> - CT-2.12</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
       <select data-module="CT">
         <option>Actualiza</option>
         <option>No actualiza</option>
         <option>Se stopea</option>
       </select>
     </div>
-    <div class="card">
-      <div><i class="fas fa-file-alt card-icon"></i> <strong>FM</strong> - FM-2.2.0-V02</div>
-      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
+    <div class="card" data-module="FM">
+      <div><i class="fas fa-box card-icon"></i> <strong>FM</strong> - FM-2.2.0-V02</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
       <select data-module="FM">
         <option>Actualiza</option>
         <option>No actualiza</option>
         <option>Se stopea</option>
       </select>
     </div>
-    <div class="card">
-      <div><i class="fas fa-users card-icon"></i> <strong>GM</strong> - GM-2.2.0</div>
-      <div class="status actualiza">⬆️ Despliegue nueva versión</div>
+    <div class="card" data-module="GM">
+      <div><i class="fas fa-box card-icon"></i> <strong>GM</strong> - GM-2.2.0</div>
+      <div class="status">⬆️ Despliegue nueva versión</div>
       <select data-module="GM">
         <option>Actualiza</option>
         <option>No actualiza</option>
         <option>Se stopea</option>
       </select>
     </div>
-    <div class="card">
-      <div><i class="fas fa-stop-circle card-icon" style="color:red"></i> <strong>GOT</strong> - GOT-2.0.2</div>
-      <div class="status stopea">⛔ Solo detener servicio</div>
+    <div class="card" data-module="GOT">
+      <div><i class="fas fa-box card-icon"></i> <strong>GOT</strong> - GOT-2.0.2</div>
+      <div class="status">⛔ Solo detener servicio</div>
       <select data-module="GOT">
         <option>Actualiza</option>
         <option>No actualiza</option>
@@ -57,7 +57,7 @@
   </div>
 
   <div class="steps">
-    <div class="step"><div class="step-number">1. Acceso a la Consola JBoss</div><p>Abrir el navegador web y acceder a <a href="http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html" target="_blank">http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html</a></p><img src="images/a.png"></div>
+    <div class="step"><div class="step-number">1. Acceso a la Consola JBoss</div><img src="images/a.png"></div>
     <div class="step"><div class="step-number">2. Panel principal</div><img src="images/b.png"></div>
     <div class="step"><div class="step-number">3. Ir a Runtime y seleccionar Server Groups</div><img src="images/c.png"></div>
     <div class="step"><div class="step-number">4. Detener el grupo de servidor correspondiente</div><img src="images/d.png"></div>
@@ -68,7 +68,7 @@
     <div class="step"><div class="step-number">9. Confirmar archivo seleccionado y subir</div><img src="images/i.png"></div>
     <div class="step"><div class="step-number">10. Iniciar nuevamente el servidor</div><img src="images/j.png"></div>
     <div class="step"><div class="step-number">11. Rollback – Restaurar versión anterior del WAR</div>
-      <p>1. Detener el servidor (Runtime &gt; Stop o Kill).<br>
+      <p>1. Detener el servidor (Runtime > Stop o Kill).<br>
       2. Ir a Deployments y deshabilitar el WAR actual.<br>
       3. Habilitar el WAR anterior (Enable).<br>
       4. Volver a Runtime y reiniciar el servidor.</p>
