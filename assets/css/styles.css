@@ -1,0 +1,60 @@
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #f5f7fb;
+  color: #333;
+}
+
+header {
+  background: linear-gradient(to right, #4f46e5, #6366f1);
+  padding: 1rem;
+  text-align: center;
+  color: white;
+}
+
+.entornos {
+  background: #e0f2fe;
+  padding: 1rem;
+  text-align: center;
+  border-bottom: 2px solid #ccc;
+}
+
+.modulos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modulo {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 200px;
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pasos {
+  padding: 2rem;
+  background: #fff;
+}
+
+.paso {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.paso img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}

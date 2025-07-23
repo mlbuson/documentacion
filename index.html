@@ -2,21 +2,136 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Instructivo Despliegue JBoss</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructivo JBoss</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <script src="./assets/js/git-auto.js" defer></script>
 </head>
 <body>
-    <header class="main-header">
-        <h1><i class="fa-solid fa-sitemap"></i> Instructivo Interactivo para el Despliegue de Módulos en JBoss</h1>
-    </header>
-    <main id="app">
-        <!-- Contenido dinámico será insertado aquí -->
-    </main>
-    <script src="assets/js/git-auto.js"></script>
-    <script src="assets/js/ui-handler.js"></script>
-    <script src="assets/js/content-loader.js"></script>
+  <header>
+    <h1>Instructivo interactivo para el despliegue de módulos en JBoss</h1>
+  </header>
+
+  <section class="entornos">
+    <h2>Ambientes de Despliegue</h2>
+    <label><input type="checkbox" checked value="PROD_FM" /> PROD_FM</label>
+    <label><input type="checkbox" checked value="PROD_CC" /> PROD_CC</label>
+    <label><input type="checkbox" checked value="PROD_GM" /> PROD_GM</label>
+    <label><input type="checkbox" checked value="PROD_GOT" /> PROD_GOT</label>
+  </section>
+
+  <section class="modulos">
+    <div class="modulo" data-modulo="PROD_FM">
+      <div class="icon">📦</div>
+      <h3>Financial Manager</h3>
+      <span class="version">FM-2.2.0-V02</span>
+      <select class="estado">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="modulo" data-modulo="PROD_CC">
+      <div class="icon">📦</div>
+      <h3>Control Tower</h3>
+      <span class="version">CT-2.12</span>
+      <select class="estado">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="modulo" data-modulo="PROD_GM">
+      <div class="icon">📦</div>
+      <h3>Gateway Manager</h3>
+      <span class="version">GM-2.2.0</span>
+      <select class="estado">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+    <div class="modulo" data-modulo="PROD_GOT">
+      <div class="icon">📦</div>
+      <h3>Gateway Operations</h3>
+      <span class="version">GOT-2.0.2</span>
+      <select class="estado">
+        <option>Actualiza</option>
+        <option>No actualiza</option>
+        <option>Se stopea</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="pasos">
+    <h2>Pasos del Proceso</h2>
+
+    <div class="paso" id="paso-1">
+      <h3>Paso 1</h3>
+      <img src="./assets/img/image1.png" alt="Paso 1" />
+    </div>
+    
+    <div class="paso" id="paso-2">
+      <h3>Paso 2</h3>
+      <img src="./assets/img/image10.png" alt="Paso 2" />
+    </div>
+    
+    <div class="paso" id="paso-3">
+      <h3>Paso 3</h3>
+      <img src="./assets/img/image11.png" alt="Paso 3" />
+    </div>
+    
+    <div class="paso" id="paso-4">
+      <h3>Paso 4</h3>
+      <img src="./assets/img/image2.png" alt="Paso 4" />
+    </div>
+    
+    <div class="paso" id="paso-5">
+      <h3>Paso 5</h3>
+      <img src="./assets/img/image3.png" alt="Paso 5" />
+    </div>
+    
+    <div class="paso" id="paso-6">
+      <h3>Paso 6</h3>
+      <img src="./assets/img/image4.png" alt="Paso 6" />
+    </div>
+    
+    <div class="paso" id="paso-7">
+      <h3>Paso 7</h3>
+      <img src="./assets/img/image5.png" alt="Paso 7" />
+    </div>
+    
+    <div class="paso" id="paso-8">
+      <h3>Paso 8</h3>
+      <img src="./assets/img/image6.png" alt="Paso 8" />
+    </div>
+    
+    <div class="paso" id="paso-9">
+      <h3>Paso 9</h3>
+      <img src="./assets/img/image7.png" alt="Paso 9" />
+    </div>
+    
+    <div class="paso" id="paso-10">
+      <h3>Paso 10</h3>
+      <img src="./assets/img/image8.png" alt="Paso 10" />
+    </div>
+    
+    <div class="paso" id="paso-11">
+      <h3>Paso 11</h3>
+      <img src="./assets/img/image9.png" alt="Paso 11" />
+    </div>
+    
+    <div class="paso" id="paso-12">
+      <h3>Paso 12</h3>
+      <img src="./assets/img/imagea.png" alt="Paso 12" />
+    </div>
+    
+    <div class="paso" id="paso-13">
+      <h3>Paso 13</h3>
+      <img src="./assets/img/imageb.png" alt="Paso 13" />
+    </div>
+    
+  </section>
 </body>
 </html>
