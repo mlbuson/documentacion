@@ -2,62 +2,1472 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Instructivo Despliegue JBoss</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Interactiva - Despliegue JBoss</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .environment-info {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .environment-info h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .env-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .env-item {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 8px;
+            color: var(--gray-700);
+            font-family: 'Courier New', monospace;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .module-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .module-icon.ct { background: var(--primary); }
+        .module-icon.fm { background: var(--success); }
+        .module-icon.gm { background: var(--warning); }
+        .module-icon.got { background: var(--danger); }
+
+        .version-badge {
+            background: var(--gray-100);
+            padding: 0.4rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .action-badge {
+            margin-top: 1.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-deploy {
+            background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+            color: #166534;
+        }
+
+        .action-stop {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            color: #991b1b;
+        }
+
+        .action-neutral {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            color: #1e40af;
+        }
+
+        .action-selected {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .back-arrow {
+            display: none;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            border-radius: 8px;
+            background: var(--gray-100);
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .back-arrow:hover {
+            background: var(--gray-200);
+        }
+
+        .main-content {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .progress-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+            position: relative;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            right: 25px;
+            height: 3px;
+            background: var(--gray-200);
+            z-index: 1;
+            border-radius: 2px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.8s ease;
+            border-radius: 2px;
+        }
+
+        .step-indicator {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--gray-600);
+            position: relative;
+            z-index: 2;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-indicator:hover {
+            transform: scale(1.1);
+        }
+
+        .step-indicator.active {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+        }
+
+        .step-indicator.completed {
+            border-color: var(--success);
+            background: var(--success);
+            color: white;
+        }
+
+        .step-indicator.completed::before {
+            content: '✓';
+            font-size: 1.2rem;
+        }
+
+        .step-content {
+            display: none;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: all 0.5s ease;
+        }
+
+        .step-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 3px solid var(--gray-100);
+        }
+
+        .step-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin-right: 2rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-title {
+            font-size: 2.5rem;
+            color: var(--gray-800);
+            font-weight: 700;
+        }
+
+        .instruction-list {
+            list-style: none;
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .instruction-item {
+            background: linear-gradient(135deg, var(--gray-50), #ffffff);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .instruction-item:hover {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            transform: translateX(8px);
+        }
+
+        .instruction-item i {
+            color: var(--primary);
+            margin-right: 1rem;
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        .instruction-item strong {
+            color: var(--gray-900);
+            font-weight: 600;
+        }
+
+        .url-box {
+            background: var(--gray-900);
+            color: #10b981;
+            padding: 1.5rem;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .image-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            background: white;
+        }
+
+        .image-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 2rem;
+        }
+
+        .image-container:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .image-caption {
+            background: white;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 2rem;
+            width: 95%;
+            max-width: 1400px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 3px solid var(--gray-100);
+            gap: 1rem;
+        }
+
+        .nav-btn {
+            padding: 1.25rem 2.5rem;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:not(:disabled):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-btn.prev {
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+            color: var(--gray-700);
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+        }
+
+        .rollback-section {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 2px solid #fca5a5;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .rollback-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .rollback-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--danger);
+            color: white;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .rollback-section h3 {
+            font-size: 1.5rem;
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .checklist {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border: 2px solid #86efac;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-top: 3rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .checklist h4 {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .checklist-item:hover {
+            background: rgba(34, 197, 94, 0.1);
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            margin-right: 1.25rem;
+            accent-color: var(--success);
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .progress-summary {
+            background: var(--gray-50);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-text {
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+
+        .progress-percentage {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 1rem; }
+            .header h1 { font-size: 2.5rem; }
+            .step-header { flex-direction: column; text-align: center; }
+            .step-icon { margin-right: 0; margin-bottom: 1rem; }
+            .step-title { font-size: 2rem; }
+            .navigation { flex-direction: column; }
+            .main-content { padding: 2rem 1.5rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in { animation: fadeIn 0.6s ease; }
+    </style>
 </head>
 <body>
-    <h1>Instructivo Interactivo para Despliegue en JBoss</h1>
-    <section class="modulos">
-        <div class="modulo" data-modulo="PROD_FM">
-            <h2>PROD_FM</h2>
-            <select>
-                <option>Actualiza</option>
-                <option>No Actualiza</option>
-                <option>Stop</option>
-            </select>
+    <div class="container">
+        <div class="header">
+            <h1><i class="fas fa-server"></i> Guía de Despliegue JBoss</h1>
+            <p>Instructivo interactivo paso a paso para el despliegue de módulos en JBoss Application Server</p>
         </div>
-        <div class="modulo" data-modulo="PROD_CC">
-            <h2>PROD_CC</h2>
-            <select>
-                <option>Actualiza</option>
-                <option>No Actualiza</option>
-                <option>Stop</option>
-            </select>
+
+        <div class="environment-info">
+            <h3><i class="fas fa-network-wired"></i> Ambientes de Despliegue</h3>
+            <div class="env-grid">
+                <div class="env-item"><strong>PROD_FM:</strong> FM-2.2.0-V02</div>
+                <div class="env-item"><strong>PROD_CC:</strong> Centro de Contacto</div>
+                <div class="env-item"><strong>PROD_GM:</strong> Gestión de Módulos</div>
+                <div class="env-item"><strong>PROD_GOT:</strong> Gateway Operations</div>
+            </div>
         </div>
-        <div class="modulo" data-modulo="PROD_GM">
-            <h2>PROD_GM</h2>
-            <select>
-                <option>Actualiza</option>
-                <option>No Actualiza</option>
-                <option>Stop</option>
-            </select>
+
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon ct"><i class="fas fa-cogs"></i></div>
+                    <div class="module-info">
+                        <h3>Control Tower</h3>
+                        <span class="version-badge">CT-2.12</span>
+                    </div>
+                </div>
+                <div class="action-badge action-deploy" onclick="selectAction('ct', 'deploy')">
+                    <i class="fas fa-upload"></i> Despliegue nueva versión
+                </div>
+                <div class="action-badge action-neutral" onclick="selectAction('ct', 'no-update')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-pause"></i> No actualizar
+                </div>
+                <div class="action-badge action-stop" onclick="selectAction('ct', 'stop')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-stop"></i> Detener servicio
+                </div>
+                <div class="back-arrow" onclick="resetActions('ct')" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Cambiar opción
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon fm"><i class="fas fa-file-invoice"></i></div>
+                    <div class="module-info">
+                        <h3>Financial Manager</h3>
+                        <span class="version-badge">FM-2.2.0-V02</span>
+                    </div>
+                </div>
+                <div class="action-badge action-deploy" onclick="selectAction('fm', 'deploy')">
+                    <i class="fas fa-upload"></i> Despliegue nueva versión
+                </div>
+                <div class="action-badge action-neutral" onclick="selectAction('fm', 'no-update')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-pause"></i> No actualizar
+                </div>
+                <div class="action-badge action-stop" onclick="selectAction('fm', 'stop')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-stop"></i> Detener servicio
+                </div>
+                <div class="back-arrow" onclick="resetActions('fm')" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Cambiar opción
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon gm"><i class="fas fa-users-cog"></i></div>
+                    <div class="module-info">
+                        <h3>Gateway Manager</h3>
+                        <span class="version-badge">GM-2.2.0</span>
+                    </div>
+                </div>
+                <div class="action-badge action-deploy" onclick="selectAction('gm', 'deploy')">
+                    <i class="fas fa-upload"></i> Despliegue nueva versión
+                </div>
+                <div class="action-badge action-neutral" onclick="selectAction('gm', 'no-update')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-pause"></i> No actualizar
+                </div>
+                <div class="action-badge action-stop" onclick="selectAction('gm', 'stop')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-stop"></i> Detener servicio
+                </div>
+                <div class="back-arrow" onclick="resetActions('gm')" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Cambiar opción
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-icon got"><i class="fas fa-stop-circle"></i></div>
+                    <div class="module-info">
+                        <h3>Gateway Operations</h3>
+                        <span class="version-badge">GOT-2.0.2</span>
+                    </div>
+                </div>
+                <div class="action-badge action-deploy" onclick="selectAction('got', 'deploy')">
+                    <i class="fas fa-upload"></i> Despliegue nueva versión
+                </div>
+                <div class="action-badge action-neutral" onclick="selectAction('got', 'no-update')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-pause"></i> No actualizar
+                </div>
+                <div class="action-badge action-stop" onclick="selectAction('got', 'stop')" style="margin-top: 0.5rem;">
+                    <i class="fas fa-stop"></i> Detener servicio
+                </div>
+                <div class="back-arrow" onclick="resetActions('got')" style="display: none;">
+                    <i class="fas fa-arrow-left"></i> Cambiar opción
+                </div>
+            </div>
         </div>
-        <div class="modulo" data-modulo="PROD_GOT">
-            <h2>PROD_GOT</h2>
-            <select>
-                <option>Actualiza</option>
-                <option>No Actualiza</option>
-                <option>Stop</option>
-            </select>
+
+        <div class="main-content">
+            <div class="progress-summary">
+                <div class="progress-text">Progreso del despliegue</div>
+                <div class="progress-percentage" id="progressPercentage">0%</div>
+            </div>
+
+            <div class="progress-tracker">
+                <div class="progress-line">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div class="step-indicator active" onclick="goToStep(0)" title="Acceso a consola">1</div>
+                <div class="step-indicator" onclick="goToStep(1)" title="Panel principal">2</div>
+                <div class="step-indicator" onclick="goToStep(2)" title="Server Groups">3</div>
+                <div class="step-indicator" onclick="goToStep(3)" title="Detener servidor">4</div>
+                <div class="step-indicator" onclick="goToStep(4)" title="Deployments">5</div>
+                <div class="step-indicator" onclick="goToStep(5)" title="Deshabilitar WAR">6</div>
+                <div class="step-indicator" onclick="goToStep(6)" title="Subir nuevo WAR">7</div>
+                <div class="step-indicator" onclick="goToStep(7)" title="Seleccionar archivo">8</div>
+                <div class="step-indicator" onclick="goToStep(8)" title="Confirmar carga">9</div>
+                <div class="step-indicator" onclick="goToStep(9)" title="Iniciar servidor">10</div>
+                <div class="step-indicator" onclick="goToStep(10)" title="Validación final">11</div>
+            </div>
+
+            <!-- Paso 1: Acceso a la Consola JBoss -->
+            <div class="step-content active" id="step-0">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-globe"></i></div>
+                    <h2 class="step-title">Acceso a la Consola JBoss</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-browser"></i>
+                        <strong>Abrir navegador:</strong> Utilice Chrome, Firefox o Edge para obtener la mejor experiencia
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-link"></i>
+                        <strong>Acceder a la URL:</strong> Copie y pegue la siguiente dirección en la barra de direcciones
+                        <div class="url-box">
+                            http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html
+                            <button class="copy-btn" onclick="copyToClipboard('http://sr-pctrl-ap01.corp.cablevision.com.ar:9990/console/index.html')">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-key"></i>
+                        <strong>Autenticación:</strong> Ingrese las credenciales proporcionadas por el administrador del sistema
+                    </li>
+                </ul>
+                
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image1.png" alt="Pantalla de login JBoss">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Pantalla de autenticación de JBoss Admin Console</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 2: Panel Principal -->
+            <div class="step-content" id="step-1">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-tachometer-alt"></i></div>
+                    <h2 class="step-title">Panel Principal</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-eye"></i>
+                        <strong>Dashboard principal:</strong> Una vez autenticado, verá el panel de control principal de JBoss
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Navegación:</strong> Familiarícese con la barra de menú superior y el panel lateral izquierdo
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-chart-line"></i>
+                        <strong>Estado del sistema:</strong> Observe los indicadores de estado de los servidores
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image2.png" alt="Dashboard JBoss">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Panel de control principal mostrando el estado de los server groups</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 3: Navegación a Server Groups -->
+            <div class="step-content" id="step-2">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-play"></i></div>
+                    <h2 class="step-title">Navegación a Runtime</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <strong>Pestaña Runtime:</strong> Haga clic en la pestaña 'Runtime' en la barra de navegación superior
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-server"></i>
+                        <strong>Server Groups:</strong> En el panel lateral izquierdo, seleccione 'Server Groups'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-list"></i>
+                        <strong>Vista de grupos:</strong> Se mostrará la lista completa de grupos de servidores disponibles
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image3.png" alt="Runtime Server Groups">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Vista de Server Groups en la sección Runtime</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 4: Detener Servidor -->
+            <div class="step-content" id="step-3">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-stop"></i></div>
+                    <h2 class="step-title">Detener Server Group</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-search"></i>
+                        <strong>Seleccionar grupo:</strong> Identifique y seleccione el server group correspondiente
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-chevron-down"></i>
+                        <strong>Menú de acciones:</strong> Haga clic en la flecha desplegable ▼ del server group
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-stop-circle"></i>
+                        <strong>Detener servicio:</strong> Seleccione la opción 'Stop' del menú desplegable
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-clock"></i>
+                        <strong>Esperar confirmación:</strong> Aguarde hasta que el estado cambie a "Stopped"
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image4.png" alt="Stop Server Group">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Menú desplegable para detener el server group</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 5: Acceso a Deployments -->
+            <div class="step-content" id="step-4">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-box"></i></div>
+                    <h2 class="step-title">Acceso a Deployments</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <strong>Pestaña Deployments:</strong> Haga clic en la pestaña 'Deployments'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-list"></i>
+                        <strong>Vista de despliegues:</strong> Se mostrará la lista de archivos WAR desplegados
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Estado de los WAR:</strong> Observe los iconos: verde (activo), gris (inactivo)
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image5.png" alt="Deployments View">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Vista de Deployments mostrando archivos WAR</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 6: Deshabilitar WAR Anterior -->
+            <div class="step-content" id="step-5">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-power-off"></i></div>
+                    <h2 class="step-title">Deshabilitar WAR Anterior</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-search"></i>
+                        <strong>Localizar WAR actual:</strong> Busque el archivo WAR de la versión actual
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <strong>Seleccionar archivo:</strong> Haga clic en el nombre del archivo WAR
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-ban"></i>
+                        <strong>Deshabilitar:</strong> Haga clic en el botón 'Disable'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-check-circle"></i>
+                        <strong>Confirmar acción:</strong> Confirme la deshabilitación
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image6.png" alt="Disable WAR">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Proceso de deshabilitación del WAR actual</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 7: Subir Nuevo WAR -->
+            <div class="step-content" id="step-6">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-upload"></i></div>
+                    <h2 class="step-title">Subir Nuevo WAR</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-plus"></i>
+                        <strong>Nuevo deployment:</strong> Haga clic en el botón 'Add Deployment'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-upload"></i>
+                        <strong>Tipo de carga:</strong> Seleccione 'Upload a new deployment'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-folder-open"></i>
+                        <strong>Seleccionar archivo:</strong> Haga clic en 'Browse' para seleccionar el WAR
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-info-circle"></i>
+                        <strong>Verificar archivo:</strong> Asegúrese de seleccionar la versión correcta
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image7.png" alt="Upload New WAR">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Diálogo para subir nuevo archivo WAR</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 8: Seleccionar Archivo WAR -->
+            <div class="step-content" id="step-7">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-file-archive"></i></div>
+                    <h2 class="step-title">Seleccionar Archivo WAR</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-folder"></i>
+                        <strong>Navegador de archivos:</strong> Se abrirá el explorador del sistema
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-search"></i>
+                        <strong>Ubicar archivo:</strong> Navegue hasta la carpeta del nuevo WAR
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-file-check"></i>
+                        <strong>Verificar versión:</strong> Confirme la versión correcta del WAR
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <strong>Seleccionar:</strong> Haga clic en el archivo y luego en 'Abrir'
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image8.png" alt="File Browser">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Explorador de archivos del sistema</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 9: Confirmar Carga -->
+            <div class="step-content" id="step-8">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-check"></i></div>
+                    <h2 class="step-title">Confirmar Carga del WAR</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-eye"></i>
+                        <strong>Revisar detalles:</strong> Verifique el nombre y tamaño del archivo
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-cogs"></i>
+                        <strong>Configuración:</strong> Mantenga las configuraciones por defecto
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-upload"></i>
+                        <strong>Iniciar carga:</strong> Haga clic en 'Next' para comenzar la transferencia
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-progress-bar"></i>
+                        <strong>Monitorear progreso:</strong> Observe la barra de progreso
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image9.png" alt="Upload Progress">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Confirmación de carga con barra de progreso</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 10: Iniciar Servidor -->
+            <div class="step-content" id="step-9">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-play-circle"></i></div>
+                    <h2 class="step-title">Iniciar Server Group</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-arrow-left"></i>
+                        <strong>Volver a Runtime:</strong> Regrese a 'Runtime' > 'Server Groups'
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-search"></i>
+                        <strong>Localizar grupo:</strong> Busque el server group que detuvo
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-chevron-down"></i>
+                        <strong>Menú de acciones:</strong> Haga clic en la flecha desplegable ▼
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-play"></i>
+                        <strong>Iniciar servicio:</strong> Seleccione 'Start' del menú
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-clock"></i>
+                        <strong>Esperar confirmación:</strong> Aguarde hasta que cambie a "Running"
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image10.png" alt="Start Server Group">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Reiniciando el server group</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Paso 11: Validación Final -->
+            <div class="step-content" id="step-10">
+                <div class="step-header">
+                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+                    <h2 class="step-title">Validación Final</h2>
+                </div>
+                <ul class="instruction-list">
+                    <li class="instruction-item">
+                        <i class="fas fa-list-check"></i>
+                        <strong>Verificar estado:</strong> Confirme que el server group esté "Running"
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-box"></i>
+                        <strong>Verificar deployment:</strong> Confirme que el nuevo WAR esté "Enabled"
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-globe"></i>
+                        <strong>Prueba funcional:</strong> Acceda a la aplicación para verificar funcionamiento
+                    </li>
+                    <li class="instruction-item">
+                        <i class="fas fa-file-alt"></i>
+                        <strong>Documentar cambios:</strong> Registre la versión desplegada y la fecha
+                    </li>
+                </ul>
+
+                <div class="image-gallery">
+                    <div class="image-container" onclick="openModal(this)">
+                        <img src="./assets/img/img/image11.png" alt="Final Validation">
+                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+                        <div class="image-caption">Estado final exitoso - servidor ejecutándose y nuevo WAR activo</div>
+                    </div>
+                </div>
+
+                <div class="checklist">
+                    <h4><i class="fas fa-tasks"></i> Checklist de Validación</h4>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check1">
+                        <label for="check1">Server group en estado "Running"</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check2">
+                        <label for="check2">Nuevo WAR desplegado y habilitado</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check3">
+                        <label for="check3">WAR anterior deshabilitado</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check4">
+                        <label for="check4">Aplicación responde correctamente</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check5">
+                        <label for="check5">Logs sin errores críticos</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="check6">
+                        <label for="check6">Documentación actualizada</label>
+                    </div>
+                </div>
+
+                <div class="rollback-section">
+                    <div class="rollback-header">
+                        <div class="rollback-icon"><i class="fas fa-undo"></i></div>
+                        <h3>Procedimiento de Rollback</h3>
+                    </div>
+                    <p><strong>En caso de problemas, siga estos pasos para volver a la versión anterior:</strong></p>
+                    <ol>
+                        <li><strong>Paso 4:</strong> Detener el server group afectado</li>
+                        <li><strong>Paso 6:</strong> Deshabilitar el nuevo WAR problemático</li>
+                        <li><strong>⚠️ Activar WAR anterior:</strong> NO subir nuevo archivo. Seleccione el WAR anterior que ya está desplegado pero deshabilitado y haga clic en "Enable"</li>
+                        <li><strong>Paso 10:</strong> Reiniciar el server group</li>
+                        <li><strong>Paso 11:</strong> Verificar funcionamiento con versión anterior</li>
+                        <li><strong>Documentar:</strong> Registrar el incidente y las acciones tomadas</li>
+                    </ol>
+                    <div style="background: rgba(220, 38, 38, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid #dc2626;">
+                        <strong>⚠️ Importante:</strong> El rollback NO requiere subir un nuevo archivo WAR. Simplemente reactive el WAR anterior que ya existe en el sistema.
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn prev" onclick="previousStep()" id="prevBtn" disabled>
+                    <i class="fas fa-chevron-left"></i> Anterior
+                </button>
+                <button class="nav-btn next" onclick="nextStep()" id="nextBtn">
+                    Siguiente <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-    </section>
-    <h2>Pasos del Proceso</h2>
-    <section class="pasos">
-        <!-- Render steps 1 to 11 -->
-        <div class="paso"><h3>Paso 1</h3><img src="assets/images/paso-1.png" alt="Paso 1"></div>
-        <div class="paso"><h3>Paso 2</h3><img src="assets/images/paso-2.png" alt="Paso 2"></div>
-        <div class="paso"><h3>Paso 3</h3><img src="assets/images/paso-3.png" alt="Paso 3"></div>
-        <div class="paso"><h3>Paso 4</h3><img src="assets/images/paso-4.png" alt="Paso 4"></div>
-        <div class="paso"><h3>Paso 5</h3><img src="assets/images/paso-5.png" alt="Paso 5"></div>
-        <div class="paso"><h3>Paso 6</h3><img src="assets/images/paso-6.png" alt="Paso 6"></div>
-        <div class="paso"><h3>Paso 7</h3><img src="assets/images/paso-7.png" alt="Paso 7"></div>
-        <div class="paso"><h3>Paso 8</h3><img src="assets/images/paso-8.png" alt="Paso 8"></div>
-        <div class="paso"><h3>Paso 9</h3><img src="assets/images/paso-9.png" alt="Paso 9"></div>
-        <div class="paso"><h3>Paso 10</h3><img src="assets/images/paso-10.png" alt="Paso 10"></div>
-        <div class="paso"><h3>Paso 11</h3><img src="assets/images/paso-11.png" alt="Paso 11"></div>
-        <!-- Rollback -->
-        <div class="paso"><h3>Rollback</h3><img src="assets/images/rollback.png" alt="Rollback"></div>
-    </section>
-    <script src="assets/js/git-auto.js"></script>
+    </div>
+
+    <!-- Modal para imágenes -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img id="modalImage" src="" alt="Imagen ampliada">
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <i class="fas fa-check"></i>
+        <span id="toastMessage">¡Paso completado!</span>
+    </div>
+
+    <script>
+        let currentStep = 0;
+        const totalSteps = 11;
+        const moduleStatus = {
+            ct: null,
+            fm: null,
+            gm: null,
+            got: null
+        };
+
+        function updateProgress() {
+            const percentage = Math.round((currentStep / totalSteps) * 100);
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+            document.getElementById('progressFill').style.width = percentage + '%';
+        }
+
+        function updateStepIndicators() {
+            const indicators = document.querySelectorAll('.step-indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.remove('active', 'completed');
+                if (index === currentStep) {
+                    indicator.classList.add('active');
+                } else if (index < currentStep) {
+                    indicator.classList.add('completed');
+                }
+            });
+        }
+
+        function showStep(stepIndex) {
+            document.querySelectorAll('.step-content').forEach(step => {
+                step.classList.remove('active');
+            });
+
+            const currentStepElement = document.getElementById(`step-${stepIndex}`);
+            if (currentStepElement) {
+                currentStepElement.classList.add('active', 'fade-in');
+            }
+
+            updateStepIndicators();
+            updateProgress();
+            updateNavigationButtons();
+        }
+
+        function updateNavigationButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.disabled = currentStep === 0;
+            
+            if (currentStep === totalSteps) {
+                nextBtn.innerHTML = '<i class="fas fa-flag-checkered"></i> Finalizar';
+            } else {
+                nextBtn.innerHTML = 'Siguiente <i class="fas fa-chevron-right"></i>';
+            }
+        }
+
+        function nextStep() {
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+                showToast('Paso completado con éxito');
+            } else {
+                showToast('¡Despliegue completado exitosamente!');
+            }
+        }
+
+        function previousStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function goToStep(stepIndex) {
+            if (stepIndex >= 0 && stepIndex <= totalSteps) {
+                currentStep = stepIndex;
+                showStep(currentStep);
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const copyBtn = event.target.closest('.copy-btn');
+                const originalHTML = copyBtn.innerHTML;
+                
+                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                }, 2000);
+                
+                showToast('URL copiada al portapapeles');
+            }).catch(() => {
+                showToast('Error al copiar URL');
+            });
+        }
+
+        function openModal(imageContainer) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const img = imageContainer.querySelector('img');
+            
+            modalImage.src = img.src;
+            modalImage.alt = img.alt;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectAction(module, action) {
+            // Ocultar todas las opciones excepto la seleccionada
+            const card = document.querySelector(`.module-card .module-icon.${module}`).closest('.module-card');
+            const actionBadges = card.querySelectorAll('.action-badge');
+            const backArrow = card.querySelector('.back-arrow');
+            
+            actionBadges.forEach(badge => {
+                badge.style.display = 'none';
+            });
+            
+            // Mostrar solo la opción seleccionada
+            const selectedBadge = card.querySelector(`.action-badge[onclick="selectAction('${module}', '${action}')"`);
+            selectedBadge.style.display = 'flex';
+            selectedBadge.classList.add('action-selected');
+            
+            // Mostrar flecha para volver atrás
+            backArrow.style.display = 'block';
+            
+            // Actualizar estado del módulo
+            moduleStatus[module] = action;
+            
+            const statusMessages = {
+                'deploy': 'Despliegue nueva versión',
+                'no-update': 'No actualizar',
+                'stop': 'Detener servicio'
+            };
+            
+            showToast(`${module.toUpperCase()}: ${statusMessages[action]}`);
+        }
+
+        function resetActions(module) {
+            // Mostrar todas las opciones nuevamente
+            const card = document.querySelector(`.module-card .module-icon.${module}`).closest('.module-card');
+            const actionBadges = card.querySelectorAll('.action-badge');
+            const backArrow = card.querySelector('.back-arrow');
+            
+            actionBadges.forEach(badge => {
+                badge.style.display = 'flex';
+                badge.classList.remove('action-selected');
+            });
+            
+            // Ocultar flecha para volver atrás
+            backArrow.style.display = 'none';
+            
+            // Resetear estado del módulo
+            moduleStatus[module] = null;
+        }
+
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            showStep(0);
+            
+            // Eventos para checkboxes
+            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        showToast('Item validado correctamente');
+                    }
+                });
+            });
+
+            // Navegación por teclado
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    previousStep();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    nextStep();
+                } else if (e.key === 'Escape') {
+                    closeModal();
+                }
+            });
+
+            // Cerrar modal al hacer clic fuera
+            document.getElementById('imageModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        });
+
+        // Interactividad para las cards de módulos
+        document.querySelectorAll('.module-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
 </body>
 </html>
