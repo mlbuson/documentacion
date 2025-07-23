@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentación Técnica - JBoss EAP</title>
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+    <style>
+        :root {
+            --primary: #003366;
+            --accent: #0066cc;
+            --text-dark: #333;
+            --bg-light: #f9f9f9;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-light);
+            margin: 0;
+            color: var(--text-dark);
+        }
+        header, footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        header img {
+            height: 50px;
+        }
+        main {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: var(--primary);
+        }
+        ol {
+            padding-left: 1.2rem;
+        }
+        li {
+            margin-bottom: 1rem;
+        }
+        ul {
+            margin-top: 0.5rem;
+            padding-left: 1.5rem;
+        }
+        figure {
+            margin: 1rem 0;
+            text-align: center;
+        }
+        figcaption {
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .warning {
+            color: #d00000;
+            font-weight: bold;
+        }
+        .note {
+            font-style: italic;
+        }
+        a {
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="assets/img/logo-cablevision.png" alt="Cablevisión Logo">
+        <h1>Documentación Técnica - JBoss EAP 7.4</h1>
+        <p>Versión: 2.5.0 | Actualizado: 2025-06-10T09:15:00Z</p>
+    </header>
+    <main>
+<section>
+    <h2><i class="fas fa-table"></i> Módulos y versiones</h2>
+    <table id="tablaModulos" style="width:100%;border-collapse:collapse;">
+        <thead style="background:#003366;color:white;">
+            <tr>
+                <th>Módulo</th>
+                <th>Versión</th>
+                <th>WAR desplegar</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td contenteditable="true">mod-usuarios</td>
+                <td contenteditable="true">1.4.2</td>
+                <td>
+                    <select>
+                        <option value="si" selected>✔️ Sí</option>
+                        <option value="no">⛔ No</option>
+                    </select>
+                </td>
+                <td><input type="color" value="#00cc66"></td>
+            </tr>
+            <tr>
+                <td contenteditable="true">mod-reportes</td>
+                <td contenteditable="true">2.0.1</td>
+                <td>
+                    <select>
+                        <option value="si">✔️ Sí</option>
+                        <option value="no" selected>⛔ No</option>
+                    </select>
+                </td>
+                <td><input type="color" value="#999999"></td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="margin-top:1rem;text-align:right;">
+        <button onclick="guardarCambios()" style="padding:8px 16px;font-size:1rem;background:#003366;color:white;border:none;border-radius:5px;">
+            💾 Guardar
+        </button>
+    </div>
+</section>
+
+        <section>
+<h2>1. Ingresar a la consola de administración de JBoss</h2>
+<p>Acceso inicial al panel de control del servidor JBoss EAP 7.4</p>
+<ol>
+<li>
+<p>Abrir el navegador web (preferentemente Chrome o Firefox en sus últimas versiones)</p>
+<p><strong>Detalles:</strong> Versiones mínimas soportadas: Chrome 85+, Firefox 78+</p>
+</li>
+<li>
+<p>Ingresar a la URL de administración: https://jboss-admin.corp.cablevision.com.ar:9990</p>
+<p><strong>Detalles:</strong> Puerto 9990 para acceso administrativo</p>
+<p class='warning'>Advertencia: No utilizar HTTP, solo HTTPS</p>
+<figure>
+                <img src="assets/img/image1.png" alt="Pantalla de acceso al JBoss">
+                <figcaption>Figura 1: Pantalla de autenticación</figcaption>
+            </figure>
+</li>
+<li>
+<p>Ingresar credenciales de acceso:</p>
+<p><strong>Detalles:</strong> {"username": "admin_jboss_prod", "password_rules": "Complexity level 4 requerido"}</p>
+<p class='note'>Nota: Las credenciales son personales e intransferibles</p>
+</li>
+</ol>
+</section>
+<section>
+<h2>2. Navegación en la consola</h2>
+<p>Reconocimiento de la interfaz administrativa</p>
+<ol>
+<li>
+<p>Al ingresar correctamente, se mostrará el dashboard principal con:</p>
+<ul>
+<li>Estado de servidores</li>
+<li>Métricas de rendimiento</li>
+<li>Alertas activas</li>
+</ul>
+<figure>
+                <img src="assets/img/image2.png" alt="">
+                <figcaption>Figura 2: Vista general del dashboard</figcaption>
+            </figure>
+</li>
+<li>
+<p>En el menú lateral izquierdo ubicar las secciones principales:</p>
+<ul>
+<li>Runtime (Monitorización en tiempo real)</li>
+<li>Deployments (Gestión de aplicaciones)</li>
+<li>Configuration (Ajustes del servidor)</li>
+<li>Administration (Tareas administrativas)</li>
+</ul>
+</li>
+</ol>
+</section>
+<section>
+<h2>3. Gestión de Server Groups</h2>
+<p>Administración de grupos de servidores para despliegues</p>
+<ol>
+<li>
+<p>Seleccionar la pestaña 'Runtime' en el menú principal</p>
+<figure>
+                <img src="assets/img/image3.png" alt="">
+                <figcaption>Figura 3: Menú de navegación</figcaption>
+            </figure>
+</li>
+<li>
+<p>Hacer clic en 'Server Groups' para ver los grupos configurados</p>
+<p><strong>Detalles:</strong> Los principales grupos son: PROD_FM, PROD_CC, PROD_GM</p>
+</li>
+<li>
+<p>Para detener un grupo:</p>
+<p class='warning'>Advertencia: Verificar que no hay usuarios conectados antes de detener</p>
+<figure>
+                <img src="assets/img/image4.png" alt="">
+                <figcaption>Figura 4: Detención de Server Group</figcaption>
+            </figure>
+</li>
+</ol>
+</section>
+<section>
+<h2>4. Despliegue de aplicaciones</h2>
+<p>Procedimiento completo para deployar WARs</p>
+<ol>
+<li>
+<p>Navegar a la pestaña 'Deployments'</p>
+<figure>
+                <img src="assets/img/image5.png" alt="">
+                <figcaption></figcaption>
+            </figure>
+</li>
+<li>
+<p>Deshabilitar la versión actual:</p>
+<figure>
+                <img src="assets/img/image6.png" alt="">
+                <figcaption></figcaption>
+            </figure>
+</li>
+<li>
+<p>Cargar nueva versión:</p>
+<p class='note'>Nota: El tamaño máximo permitido es 250MB</p>
+<figure>
+                <img src="assets/img/image7.png" alt="">
+                <figcaption></figcaption>
+            </figure>
+</li>
+<li>
+<p>Habilitar el nuevo deployment:</p>
+</li>
+</ol>
+</section>
+<section>
+<h2>5. Verificación post-despliegue</h2>
+<p>Validación del despliegue exitoso</p>
+<ol>
+<li>
+<p>Verificar en 'Runtime' > 'Server Groups' que:</p>
+<ul>
+<li>El estado sea 'Started'</li>
+<li>No haya errores en el log</li>
+<li>La versión mostrada sea la correcta</li>
+</ul>
+</li>
+<li>
+<p>Realizar pruebas funcionales básicas:</p>
+<ul>
+<li>Acceso a URLs principales</li>
+<li>Pruebas de autenticación</li>
+<li>Operaciones críticas</li>
+</ul>
+</li>
+</ol>
+</section>
+<section>
+<h2>6. Procedimiento de Rollback</h2>
+<p>Revertir a versión anterior en caso de fallos</p>
+<ol>
+<li>
+<p>Detener el Server Group afectado</p>
+</li>
+<li>
+<p>Navegar a 'Deployments'</p>
+</li>
+<li>
+<p>Deshabilitar la versión problemática</p>
+</li>
+<li>
+<p>Habilitar la versión anterior estable</p>
+</li>
+<li>
+<p>Reiniciar el Server Group</p>
+</li>
+<li>
+<p>Documentar el incidente en el sistema de tickets</p>
+</li>
+</ol>
+</section>
+
+    </main>
+    <footer>
+        <p>Contacto soporte: <a href="mailto:soporte.jboss@cablevision.com.ar">soporte.jboss@cablevision.com.ar</a></p>
+        <p>© 2025 Cablevisión S.A. - Todos los derechos reservados</p>
+    </footer>
+</body>
+</html>
