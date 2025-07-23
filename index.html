@@ -1040,439 +1040,111 @@
                 </div>
             </div>
 
-            <!-- Paso 8: Seleccionar Archivo WAR -->
-            <div class="step-content" id="step-7">
-                <div class="step-header">
-                    <div class="step-icon"><i class="fas fa-file-archive"></i></div>
-                    <h2 class="step-title">Seleccionar Archivo WAR</h2>
-                </div>
-                <ul class="instruction-list">
-                    <li class="instruction-item">
-                        <i class="fas fa-folder"></i>
-                        <strong>Navegador de archivos:</strong> Se abrirá el explorador del sistema
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-search"></i>
-                        <strong>Ubicar archivo:</strong> Puede copiar y pegar la ruta: <code>S:\Publico\jbossprod</code> o navegar manualmente:
-                        <ol style="margin-top: 0.5rem; margin-left: 1.5rem;">
-                            <li>Ir a <strong>Computer</strong></li>
-                            <li>Seleccionar <strong>Compartidos</strong></li>
-                            <li>En la esquina superior derecha, buscar <strong>jbossprod</strong></li>
-                        </ol>
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-file-check"></i>
-                        <strong>Verificar versión:</strong> Asegúrese de seleccionar el archivo WAR correcto para el módulo correspondiente
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-mouse-pointer"></i>
-                        <strong>Seleccionar:</strong> Haga clic en el archivo y luego en 'Abrir'
-                    </li>
-                </ul>
-
-                <div class="image-gallery">
-                    <div class="image-container" onclick="openModal(this)">
-                        <img src="./assets/img/img/image8.png" alt="File Browser">
-                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
-                        <div class="image-caption">Explorador de archivos del sistema</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Paso 9: Confirmar Carga -->
-            <div class="step-content" id="step-8">
-                <div class="step-header">
-                    <div class="step-icon"><i class="fas fa-check"></i></div>
-                    <h2 class="step-title">Confirmar Carga del WAR</h2>
-                </div>
-                <ul class="instruction-list">
-                    <li class="instruction-item">
-                        <i class="fas fa-eye"></i>
-                        <strong>Revisar detalles:</strong> Verifique el nombre y tamaño del archivo
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-cogs"></i>
-                        <strong>Configuración:</strong> Mantenga las configuraciones por defecto
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-upload"></i>
-                        <strong>Iniciar carga:</strong> Haga clic en 'Next' para comenzar la transferencia
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-progress-bar"></i>
-                        <strong>Monitorear progreso:</strong> Observe la barra de progreso
-                    </li>
-                </ul>
-
-                <div class="image-gallery">
-                    <div class="image-container" onclick="openModal(this)">
-                        <img src="./assets/img/img/image9.png" alt="Upload Progress">
-                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
-                        <div class="image-caption">Confirmación de carga con barra de progreso</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Paso 10: Iniciar Servidor -->
-            <div class="step-content" id="step-9">
-                <div class="step-header">
-                    <div class="step-icon"><i class="fas fa-play-circle"></i></div>
-                    <h2 class="step-title">Iniciar Server Group</h2>
-                </div>
-                <ul class="instruction-list">
-                    <li class="instruction-item">
-                        <i class="fas fa-arrow-left"></i>
-                        <strong>Volver a Runtime:</strong> Regrese a 'Runtime' > 'Server Groups'
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-search"></i>
-                        <strong>Localizar grupo:</strong> Busque el server group que detuvo
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-chevron-down"></i>
-                        <strong>Menú de acciones:</strong> Haga clic en la flecha desplegable ▼
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-play"></i>
-                        <strong>Iniciar servicio:</strong> Seleccione 'Start' del menú
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-clock"></i>
-                        <strong>Esperar confirmación:</strong> Aguarde hasta que cambie a "Running"
-                    </li>
-                </ul>
-
-                <div class="image-gallery">
-                    <div class="image-container" onclick="openModal(this)">
-                        <img src="./assets/img/img/image10.png" alt="Start Server Group">
-                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
-                        <div class="image-caption">Reiniciando el server group</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Paso 11: Validación Final -->
-            <div class="step-content" id="step-10">
-                <div class="step-header">
-                    <div class="step-icon"><i class="fas fa-check-circle"></i></div>
-                    <h2 class="step-title">Validación Final</h2>
-                </div>
-                <ul class="instruction-list">
-                    <li class="instruction-item">
-                        <i class="fas fa-list-check"></i>
-                        <strong>Verificar estado:</strong> Confirme que el server group esté "Running"
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-box"></i>
-                        <strong>Verificar deployment:</strong> Confirme que el nuevo WAR esté "Enabled"
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-globe"></i>
-                        <strong>Prueba funcional:</strong> Acceda a la aplicación para verificar funcionamiento
-                    </li>
-                    <li class="instruction-item">
-                        <i class="fas fa-file-alt"></i>
-                        <strong>Documentar cambios:</strong> Registre la versión desplegada y la fecha
-                    </li>
-                </ul>
-
-                <div class="image-gallery">
-                    <div class="image-container" onclick="openModal(this)">
-                        <img src="./assets/img/img/image11.png" alt="Final Validation">
-                        <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
-                        <div class="image-caption">Estado final exitoso - servidor ejecutándose y nuevo WAR activo</div>
-                    </div>
-                </div>
-
-                <div class="checklist">
-                    <h4><i class="fas fa-tasks"></i> Checklist de Validación</h4>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check1">
-                        <label for="check1">Server group en estado "Running"</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check2">
-                        <label for="check2">Nuevo WAR desplegado y habilitado</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check3">
-                        <label for="check3">WAR anterior deshabilitado</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check4">
-                        <label for="check4">Aplicación responde correctamente</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check5">
-                        <label for="check5">Logs sin errores críticos</label>
-                    </div>
-                    <div class="checklist-item">
-                        <input type="checkbox" id="check6">
-                        <label for="check6">Documentación actualizada</label>
-                    </div>
-                </div>
-
-                <div class="rollback-section">
-                    <div class="rollback-header">
-                        <div class="rollback-icon"><i class="fas fa-undo"></i></div>
-                        <h3>Procedimiento de Rollback</h3>
-                    </div>
-                    <p><strong>En caso de problemas, siga estos pasos para volver a la versión anterior:</strong></p>
-                    <ol>
-                        <li><strong>Paso 4:</strong> Detener el server group afectado</li>
-                        <li><strong>Paso 6:</strong> Deshabilitar el nuevo WAR problemático</li>
-                        <li><strong>⚠️ Activar WAR anterior:</strong> NO subir nuevo archivo. Seleccione el WAR anterior que ya está desplegado pero deshabilitado y haga clic en "Enable"</li>
-                        <li><strong>Paso 10:</strong> Reiniciar el server group</li>
-                        <li><strong>Paso 11:</strong> Verificar funcionamiento con versión anterior</li>
-                        <li><strong>Documentar:</strong> Registrar el incidente y las acciones tomadas</li>
-                    </ol>
-                    <div style="background: rgba(220, 38, 38, 0.1); padding: 1rem; border-radius: 8px; margin-top: 1rem; border-left: 4px solid #dc2626;">
-                        <strong>⚠️ Importante:</strong> El rollback NO requiere subir un nuevo archivo WAR. Simplemente reactive el WAR anterior que ya existe en el sistema.
-                    </div>
-                </div>
-            </div>
-
-            <div class="navigation">
-                <button class="nav-btn prev" onclick="previousStep()" id="prevBtn" disabled>
-                    <i class="fas fa-chevron-left"></i> Anterior
-                </button>
-                <button class="nav-btn next" onclick="nextStep()" id="nextBtn">
-                    Siguiente <i class="fas fa-chevron-right"></i>
+<!-- Paso 8: Seleccionar Archivo WAR -->
+<div class="step-content" id="step-7">
+    <div class="step-header">
+        <div class="step-icon"><i class="fas fa-file-archive"></i></div>
+        <h2 class="step-title">Seleccionar Archivo WAR</h2>
+    </div>
+    <ul class="instruction-list">
+        <li class="instruction-item">
+            <i class="fas fa-folder-open"></i>
+            <strong>Método 1 - Ruta directa:</strong>
+            <div class="url-box" style="margin-top: 0.5rem;">
+                S:\Publico\jboss\04-06-2025\[FM|GM|CT|GOT]
+                <button class="copy-btn" onclick="copyToClipboard('S:\\Publico\\jboss\\04-06-2025\\')">
+                    <i class="fas fa-copy"></i>
                 </button>
             </div>
+        </li>
+        <li class="instruction-item">
+            <i class="fas fa-search"></i>
+            <strong>Método 2 - Navegación manual:</strong>
+            <ol style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                <li>Ir a <strong>Computer</strong></li>
+                <li>Seleccionar <strong>Compartidos</strong></li>
+                <li>Buscar <strong>jbossprod</strong> en la esquina superior derecha</li>
+            </ol>
+        </li>
+        <li class="instruction-item">
+            <i class="fas fa-folder"></i>
+            <strong>Seleccionar carpeta según módulo:</strong>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin-top: 0.5rem;">
+                <span class="version-badge">FM</span>
+                <span class="version-badge">GM</span>
+                <span class="version-badge">CT</span>
+                <span class="version-badge">GOT</span>
+            </div>
+        </li>
+    </ul>
+
+    <div class="image-gallery">
+        <div class="image-container" onclick="openModal(this)">
+            <img src="./assets/img/img/image8.png" alt="Explorador de archivos">
+            <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+            <div class="image-caption">Vista de la ruta S:\Publico\jboss</div>
+        </div>
+        <div class="image-container" onclick="openModal(this)">
+            <img src="./assets/img/img/image9.png" alt="Selección de carpeta">
+            <div class="image-overlay"><i class="fas fa-search-plus"></i></div>
+            <div class="image-caption">Carpetas por módulo (FM, GM, CT, GOT)</div>
         </div>
     </div>
+</div>
 
-    <!-- Modal para imágenes -->
-    <div id="imageModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <img id="modalImage" src="" alt="Imagen ampliada">
-        </div>
+<!-- Paso 9: Confirmar Carga -->
+<div class="step-content" id="step-8">
+    <div class="step-header">
+        <div class="step-icon"><i class="fas fa-check-circle"></i></div>
+        <h2 class="step-title">Confirmar Archivo WAR</h2>
     </div>
+    <ul class="instruction-list">
+        <li class="instruction-item">
+            <i class="fas fa-tag"></i>
+            <strong>Verificar versión:</strong>
+            <div style="margin-top: 0.5rem; background: #f0fdf4; padding: 1rem; border-radius: 8px;">
+                El nombre del WAR debe coincidir con el Tag indicado para actualizar:<br>
+                <strong>Ejemplo:</strong> GOT-2.1.2.war
+            </div>
+        </li>
+        <li class="instruction-item">
+            <i class="fas fa-cogs"></i>
+            <strong>Configuración:</strong> Mantener opciones predeterminadas
+        </li>
+        <li class="instruction-item">
+            <i class="fas fa-upload"></i>
+            <strong>Iniciar carga:</strong> Clic en <strong>Next</strong>
+        </li>
+    </ul>
+</div>
 
-    <div class="toast" id="toast">
-        <i class="fas fa-check"></i>
-        <span id="toastMessage">¡Paso completado!</span>
+<!-- Sección destacada de Rollback -->
+<div class="rollback-section" style="margin-top: 2rem;">
+    <div class="rollback-header">
+        <div class="rollback-icon"><i class="fas fa-undo"></i></div>
+        <h3>Procedimiento de Rollback</h3>
     </div>
+    <ol style="margin-left: 1.5rem;">
+        <li><strong>Detener servidor:</strong> Runtime → Stop/Kill</li>
+        <li><strong>Deshabilitar WAR nuevo:</strong> Deployments → Disable</li>
+        <li><strong>Habilitar WAR anterior:</strong> Seleccionar versión previa → Enable</li>
+        <li><strong>Reiniciar servidor:</strong> Runtime → Start</li>
+    </ol>
+</div>
 
-    <script>
-        let currentStep = 0;
-        const totalSteps = 11;
-        const moduleStatus = {
-            ct: null,
-            fm: null,
-            gm: null,
-            got: null
-        };
-
-        function updateProgress() {
-            const percentage = Math.round((currentStep / totalSteps) * 100);
-            document.getElementById('progressPercentage').textContent = percentage + '%';
-            document.getElementById('progressFill').style.width = percentage + '%';
-        }
-
-        function updateStepIndicators() {
-            const indicators = document.querySelectorAll('.step-indicator');
-            indicators.forEach((indicator, index) => {
-                indicator.classList.remove('active', 'completed');
-                if (index === currentStep) {
-                    indicator.classList.add('active');
-                } else if (index < currentStep) {
-                    indicator.classList.add('completed');
-                }
-            });
-        }
-
-        function showStep(stepIndex) {
-            document.querySelectorAll('.step-content').forEach(step => {
-                step.classList.remove('active');
-            });
-
-            const currentStepElement = document.getElementById(`step-${stepIndex}`);
-            if (currentStepElement) {
-                currentStepElement.classList.add('active', 'fade-in');
-            }
-
-            updateStepIndicators();
-            updateProgress();
-            updateNavigationButtons();
-        }
-
-        function updateNavigationButtons() {
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-
-            prevBtn.disabled = currentStep === 0;
-            
-            if (currentStep === totalSteps) {
-                nextBtn.innerHTML = '<i class="fas fa-flag-checkered"></i> Finalizar';
-            } else {
-                nextBtn.innerHTML = 'Siguiente <i class="fas fa-chevron-right"></i>';
-            }
-        }
-
-        function nextStep() {
-            if (currentStep < totalSteps) {
-                currentStep++;
-                showStep(currentStep);
-                showToast('Paso completado con éxito');
-            } else {
-                showToast('¡Despliegue completado exitosamente!');
-            }
-        }
-
-        function previousStep() {
-            if (currentStep > 0) {
-                currentStep--;
-                showStep(currentStep);
-            }
-        }
-
-        function goToStep(stepIndex) {
-            if (stepIndex >= 0 && stepIndex <= totalSteps) {
-                currentStep = stepIndex;
-                showStep(currentStep);
-            }
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.textContent = message;
-            toast.classList.add('show');
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                const copyBtn = event.target.closest('.copy-btn');
-                const originalHTML = copyBtn.innerHTML;
-                
-                copyBtn.innerHTML = '<i class="fas fa-check"></i>';
-                
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalHTML;
-                }, 2000);
-                
-                showToast('URL copiada al portapapeles');
-            }).catch(() => {
-                showToast('Error al copiar URL');
-            });
-        }
-
-        function openModal(imageContainer) {
-            const modal = document.getElementById('imageModal');
-            const modalImage = document.getElementById('modalImage');
-            const img = imageContainer.querySelector('img');
-            
-            modalImage.src = img.src;
-            modalImage.alt = img.alt;
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            const modal = document.getElementById('imageModal');
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        function selectAction(module, action) {
-            // Ocultar todas las opciones excepto la seleccionada
-            const card = document.querySelector(`.module-card .module-icon.${module}`).closest('.module-card');
-            const actionBadges = card.querySelectorAll('.action-badge');
-            const backArrow = card.querySelector('.back-arrow');
-            
-            actionBadges.forEach(badge => {
-                badge.style.display = 'none';
-            });
-            
-            // Mostrar solo la opción seleccionada
-            const selectedBadge = card.querySelector(`.action-badge[onclick="selectAction('${module}', '${action}')"`);
-            selectedBadge.style.display = 'flex';
-            selectedBadge.classList.add('action-selected');
-            
-            // Mostrar flecha para volver atrás
-            backArrow.style.display = 'block';
-            
-            // Actualizar estado del módulo
-            moduleStatus[module] = action;
-            
-            const statusMessages = {
-                'deploy': 'Despliegue nueva versión',
-                'no-update': 'No actualizar',
-                'stop': 'Detener servicio'
-            };
-            
-            showToast(`${module.toUpperCase()}: ${statusMessages[action]}`);
-        }
-
-        function resetActions(module) {
-            // Mostrar todas las opciones nuevamente
-            const card = document.querySelector(`.module-card .module-icon.${module}`).closest('.module-card');
-            const actionBadges = card.querySelectorAll('.action-badge');
-            const backArrow = card.querySelector('.back-arrow');
-            
-            actionBadges.forEach(badge => {
-                badge.style.display = 'flex';
-                badge.classList.remove('action-selected');
-            });
-            
-            // Ocultar flecha para volver atrás
-            backArrow.style.display = 'none';
-            
-            // Resetear estado del módulo
-            moduleStatus[module] = null;
-        }
-
-        // Inicializar la aplicación
-        document.addEventListener('DOMContentLoaded', function() {
-            showStep(0);
-            
-            // Eventos para checkboxes
-            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
-                checkbox.addEventListener('change', function() {
-                    if (this.checked) {
-                        showToast('Item validado correctamente');
-                    }
-                });
-            });
-
-            // Navegación por teclado
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'ArrowLeft') {
-                    e.preventDefault();
-                    previousStep();
-                } else if (e.key === 'ArrowRight') {
-                    e.preventDefault();
-                    nextStep();
-                } else if (e.key === 'Escape') {
-                    closeModal();
-                }
-            });
-
-            // Cerrar modal al hacer clic fuera
-            document.getElementById('imageModal').addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-        });
-
-        // Interactividad para las cards de módulos
-        document.querySelectorAll('.module-card').forEach(card => {
-            card.addEventListener('click', function() {
-                this.style.transform = 'scale(1.05)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
-            });
-        });
-    </script>
-</body>
-</html>
+<!-- Sección de Recomendaciones -->
+<div class="checklist" style="margin-top: 2rem;">
+    <h4><i class="fas fa-exclamation-triangle"></i> Recomendaciones Clave</h4>
+    <div class="checklist-item">
+        <i class="fas fa-info-circle" style="color: #dc2626; margin-right: 1rem;"></i>
+        <span>Para <strong>GOT/GAS</strong>: Solo detener servicio (no reemplazar WAR)</span>
+    </div>
+    <div class="checklist-item">
+        <i class="fas fa-folder" style="color: #2563eb; margin-right: 1rem;"></i>
+        <span>Ruta exacta: <code>S:\Publico\jboss\</code></span>
+    </div>
+    <div class="checklist-item">
+        <i class="fas fa-skull-crossbones" style="color: #d97706; margin-right: 1rem;"></i>
+        <span>Usar <strong>Kill</strong> si el servidor no responde</span>
+    </div>
+</div>
